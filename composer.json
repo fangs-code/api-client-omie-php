@@ -1,0 +1,24 @@
+{
+    "name": "fangs/apiclient-omie",
+    "type": "library",
+    "description": "Client for Omie API",
+    "keywords": ["client", "api", "omie"],
+    "homepage": "https://fangs.com.br",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leonardo de Aguiar Pereira",
+            "email": "leoaguiarpereira@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.1"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Fangs\\":"fangs/"
+        }
+    }
+}
