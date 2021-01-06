@@ -1,22 +1,22 @@
 <?php
-namespace Fangs\ApiClients\Omie;
+namespace Fangs\ApiClients\Omie\v1;
 
 /**
- * Class FangsApiClientOmieConfiguration.
+ * Class OmieApiConfig.
  *
  * @author  Leonardo de Aguiar <leoaguiarpereira@gmail.com>
- * @package Fangs\ApiClients\Omie
- * @name    FangsApiClientOmieConfiguration
+ * @package Fangs\ApiClients\Omie\v1
+ * @name    OmieApiConfig
  * @version 1.0.0
  */
-class FangsApiClientOmieConfiguration
+class OmieApiConfig
 {
     protected string $appKey;
     protected string $appSecret;
 
 
     /**
-     * FangsApiClientOmieConfiguration constructor.
+     * OmieApiConfig constructor.
      *
      * @param string $appKey
      * @param string $appSecret
@@ -41,9 +41,9 @@ class FangsApiClientOmieConfiguration
     /**
      * @param string $appKey
      *
-     * @return FangsApiClientOmieConfiguration
+     * @return OmieApiConfig
      */
-    public function setAppKey(string $appKey): FangsApiClientOmieConfiguration
+    public function setAppKey(string $appKey): OmieApiConfig
     {
         $this->appKey = $appKey;
 
@@ -61,9 +61,9 @@ class FangsApiClientOmieConfiguration
     /**
      * @param string $appSecret
      *
-     * @return FangsApiClientOmieConfiguration
+     * @return OmieApiConfig
      */
-    public function setAppSecret(string $appSecret): FangsApiClientOmieConfiguration
+    public function setAppSecret(string $appSecret): OmieApiConfig
     {
         $this->appSecret = $appSecret;
 

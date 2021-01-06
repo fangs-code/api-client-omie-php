@@ -1,7 +1,5 @@
 <?php
-namespace Fangs\ApiClients\Omie\Models\Requests;
-
-use Fangs\ApiClients\Omie\Models\Entities\CidadeEntityOmieModel;
+namespace Fangs\ApiClients\Omie\v1\Models\Geral\Cidades;
 
 /**
  * Class CidadeListarResponseOmieModel.

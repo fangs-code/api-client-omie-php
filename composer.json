@@ -2,7 +2,7 @@
     "name": "fangs/apiclient-omie",
     "type": "library",
     "description": "Client for Omie API",
-    "keywords": ["client", "api", "omie"],
+    "keywords": ["fangs", "client", "api", "omie"],
     "homepage": "https://fangs.com.br",
     "license": "MIT",
     "authors": [
@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^7.1"
+        "guzzlehttp/guzzle": "^7.1",
+        "ext-json": "*"
     },
 
     "autoload": {
