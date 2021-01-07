@@ -15,31 +15,31 @@ class ClienteEntityOmieModel
      * Código interno do omie, mapeado através do campo [codigo_produto].
      * Recomenda-se armazenar como BIGINT.
      */
-    protected int $idOmie;
+    protected ?int $idOmie = null;
 
     /**
      * Código interno de integração do omie, mapeado através do campo [codigo_produto_integracao].
      * Recomenda-se armazenar como VARCHAR(20).
      */
-    protected string $idIntegracao;
+    protected ?string $idIntegracao = null;
 
     /**
      * Razão Social.
      * Recomenda-se armazenar como VARCHAR(60).
      */
-    protected string $razaoSocial;
+    protected ?string $razaoSocial = null;
 
     /**
      * CNPJ/CPF.
      * Recomenda-se armazenar como VARCHAR(20).
      */
-    protected string $cnpjCpf;
+    protected ?string $cnpjCpf = null;
 
     /**
      * Nome Fantasia.
      * Recomenda-se armazenar como VARCHAR(100).
      */
-    protected string $nomeFantasia;
+    protected ?string $nomeFantasia = null;
 
     /**
      * DDD Telefone.
@@ -270,19 +270,19 @@ class ClienteEntityOmieModel
     /* GETTERS/SETTERS */
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getIdOmie(): int
+    public function getIdOmie(): ?int
     {
         return $this->idOmie;
     }
 
     /**
-     * @param int $idOmie
+     * @param int|null $idOmie
      *
      * @return ClienteEntityOmieModel
      */
-    public function setIdOmie(int $idOmie): ClienteEntityOmieModel
+    public function setIdOmie(?int $idOmie): ClienteEntityOmieModel
     {
         $this->idOmie = $idOmie;
 
@@ -290,19 +290,19 @@ class ClienteEntityOmieModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIdIntegracao(): string
+    public function getIdIntegracao(): ?string
     {
         return $this->idIntegracao;
     }
 
     /**
-     * @param string $idIntegracao
+     * @param string|null $idIntegracao
      *
      * @return ClienteEntityOmieModel
      */
-    public function setIdIntegracao(string $idIntegracao): ClienteEntityOmieModel
+    public function setIdIntegracao(?string $idIntegracao): ClienteEntityOmieModel
     {
         $this->idIntegracao = $idIntegracao;
 
@@ -310,19 +310,19 @@ class ClienteEntityOmieModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRazaoSocial(): string
+    public function getRazaoSocial(): ?string
     {
         return $this->razaoSocial;
     }
 
     /**
-     * @param string $razaoSocial
+     * @param string|null $razaoSocial
      *
      * @return ClienteEntityOmieModel
      */
-    public function setRazaoSocial(string $razaoSocial): ClienteEntityOmieModel
+    public function setRazaoSocial(?string $razaoSocial): ClienteEntityOmieModel
     {
         $this->razaoSocial = $razaoSocial;
 
@@ -330,19 +330,19 @@ class ClienteEntityOmieModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCnpjCpf(): string
+    public function getCnpjCpf(): ?string
     {
         return $this->cnpjCpf;
     }
 
     /**
-     * @param string $cnpjCpf
+     * @param string|null $cnpjCpf
      *
      * @return ClienteEntityOmieModel
      */
-    public function setCnpjCpf(string $cnpjCpf): ClienteEntityOmieModel
+    public function setCnpjCpf(?string $cnpjCpf): ClienteEntityOmieModel
     {
         $this->cnpjCpf = $cnpjCpf;
 
@@ -350,19 +350,19 @@ class ClienteEntityOmieModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNomeFantasia(): string
+    public function getNomeFantasia(): ?string
     {
         return $this->nomeFantasia;
     }
 
     /**
-     * @param string $nomeFantasia
+     * @param string|null $nomeFantasia
      *
      * @return ClienteEntityOmieModel
      */
-    public function setNomeFantasia(string $nomeFantasia): ClienteEntityOmieModel
+    public function setNomeFantasia(?string $nomeFantasia): ClienteEntityOmieModel
     {
         $this->nomeFantasia = $nomeFantasia;
 
