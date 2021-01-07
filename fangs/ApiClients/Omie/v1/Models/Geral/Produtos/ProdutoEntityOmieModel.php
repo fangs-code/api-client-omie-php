@@ -15,93 +15,93 @@ class ProdutoEntityOmieModel
      * Código interno do omie, mapeado através do campo [codigo_produto].
      * Recomenda-se armazenar como BIGINT.
      */
-    protected int $idOmie;
+    protected ?int $idOmie = null;
 
     /**
      * Código interno de integração do omie, mapeado através do campo [codigo_produto_integracao].
      * Recomenda-se armazenar como VARCHAR(20).
      */
-    protected string $idIntegracao;
+    protected ?string $idIntegracao = null;
 
     /**
      * Descrição do produto.
      * Recomenda-se armazenar como VARCHAR(120).
      */
-    protected string $descricao;
+    protected ?string $descricao = null;
 
     /**
      * Descrição detalhada do produto.
      * Recomenda-se armazenar como TEXT.
      */
-    protected string $descricaoDetalhada;
+    protected ?string $descricaoDetalhada = null;
 
     /**
      * Indica se a Descrição Detalhada deve ser exibida nas Informações Adicionais do Item da NF-e (S/N).
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $exibirDescricaoNfe;
+    protected ?string $exibirDescricaoNfe = null;
 
     /**
      * Indica se a Descrição Detalhada deve ser exibida na impressão do Pedido (S/N).
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $exibirDescricaoPedido;
+    protected ?string $exibirDescricaoPedido = null;
 
     /**
      * Observações Internas.
      * Recomenda-se armazenar como TEXT.
      */
-    protected string $observacoesInternas;
+    protected ?string $observacoesInternas = null;
 
     /**
      * Código do produto exibido na tela de produtos do omie.
      * Recomenda-se armazenar como VARCHAR(60).
      */
-    protected string $codigo;
+    protected ?string $codigo = null;
 
     /**
      * Código da unidade.
      * Recomenda-se armazenar como VARCHAR(6).
      * Preenchimento Obrigatório.
      */
-    protected string $unidade;
+    protected ?string $unidade = null;
 
     /**
      * Código da Nomenclatura Comum do Mercosul (NCM).
      * Recomenda-se armazenar como VARCHAR(13).
      * Preenchimento Obrigatório.
      */
-    protected string $ncm;
+    protected ?string $ncm = null;
 
     /**
      * Código EAN (GTIN - Global Trade Item Number).
      * Recomenda-se armazenar como VARCHAR(14).
      */
-    protected string $ean;
+    protected ?string $ean = null;
 
     /**
      * Valor Unitário do produto.
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $valorUnitario;
+    protected ?float $valorUnitario = null;
 
     /**
      * Código da Familia do Produto.
      * Recomenda-se armazenar como BIGINT.
      */
-    protected int $codigoFamilia;
+    protected ?int $codigoFamilia = null;
 
     /**
      * Código de Integração da Familia do Produto.
      * Recomenda-se armazenar como VARCHAR(20).
      */
-    protected string $codigoIntegracaoFamilia;
+    protected ?string $codigoIntegracaoFamilia = null;
 
     /**
      * Descrição da Familia do Produto.
      * Recomenda-se armazenar como VARCHAR(50).
      */
-    protected string $descricaoFamilia;
+    protected ?string $descricaoFamilia = null;
 
     /**
      * Código do Tipo do Item para o SPED. Pode ser:
@@ -119,157 +119,155 @@ class ProdutoEntityOmieModel
      * 99 - Outras
      * Recomenda-se armazenar como VARCHAR(2).
      */
-    protected string $tipoItem;
+    protected ?string $tipoItem = null;
 
     /**
      * Peso Bruto (Kg).
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $pesoBruto;
+    protected ?float $pesoBruto = null;
 
     /**
      * Peso Líquido (Kg).
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $pesoLiquido;
+    protected ?float $pesoLiquido = null;
 
     /**
      * Altura (centímetros).
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $altura;
+    protected ?float $altura = null;
 
     /**
      * Largura (centímetros).
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $largura;
+    protected ?float $largura = null;
 
     /**
      * Profundidade (centímetros).
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $profundidade;
+    protected ?float $profundidade = null;
 
     /**
      * Marca.
      * Recomenda-se armazenar como VARCHAR(60).
      */
-    protected string $marca;
+    protected ?string $marca = null;
 
     /**
      * Dias de Garantia.
      * Recomenda-se armazenar como INT.
      */
-    protected int $diasGarantia;
+    protected ?int $diasGarantia = null;
 
     /**
      * Dias de Crossdocking.
      * Recomenda-se armazenar como INT.
      */
-    protected int $diasCrossdocking;
+    protected ?int $diasCrossdocking = null;
 
     /**
      * Código da Situação Tributária do ICMS.
      * Recomenda-se armazenar como VARCHAR(2).
      */
-    protected string $cstIcms;
+    protected ?string $cstIcms = null;
 
     /**
      * Modalidade da Base de Cálculo do ICMS.
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $modalidadeIcms;
+    protected ?string $modalidadeIcms = null;
 
     /**
      * Código da Situação Tributária para Simples Nacional.
      * Recomenda-se armazenar como VARCHAR(3).
      */
-    protected string $csosnIcms;
+    protected ?string $csosnIcms = null;
 
     /**
      * Alíquota de ICMS.
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $aliquotaIcms;
+    protected ?float $aliquotaIcms = null;
 
     /**
      * Percentual de redução de base do ICMS.
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $reducaoBaseIcms;
+    protected ?float $reducaoBaseIcms = null;
 
     /**
      * Motivo da desoneração do ICMS.
      * Recomenda-se armazenar como VARCHAR(2).
      */
-    protected string $motivoDesoneracaoIcms;
+    protected ?string $motivoDesoneracaoIcms = null;
 
     /**
      * Percentual do Fundo de Combate a Pobreza do ICMS.
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $percentualFcpIcms;
+    protected ?float $percentualFcpIcms = null;
 
     /**
      * Código de integração da característica do produto.
      * Recomenda-se armazenar como VARCHAR(20).
      */
-    protected string $codigoBeneficio;
+    protected ?string $codigoBeneficio = null;
 
     /**
      * Código da Situação Tributária do PIS.
      * Recomenda-se armazenar como VARCHAR(2).
      */
-    protected string $cstPis;
+    protected ?string $cstPis = null;
 
     /**
      * Alíquota do PIS.
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $aliquotaPis;
+    protected ?float $aliquotaPis = null;
 
     /**
      * Código da Situação Tributária do COFINS.
      * Recomenda-se armazenar como VARCHAR(2).
      */
-    protected string $cstCofins;
+    protected ?string $cstCofins = null;
 
     /**
      * Alíquota do COFINS.
      * Recomenda-se armazenar como DECIMAL(15,4).
      */
-    protected float $aliquotaCofins;
+    protected ?float $aliquotaCofins = null;
 
     /**
      * CFOP do Produto.
      * Recomenda-se armazenar como VARCHAR(10).
      */
-    protected string $cfop;
+    protected ?string $cfop = null;
 
     /**
      * Indica se o registro está bloqueado (S/N).
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $bloqueado;
+    protected ?string $bloqueado = null;
 
     /**
      * Indica se o registro está bloqueado para exclusão (S/N).
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $bloquearExclusao;
+    protected ?string $bloquearExclusao = null;
 
     /**
      * Indica se o registro foi incluído via API (S/N).
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $importadoApi;
+    protected ?string $importadoApi = null;
 
     /**
      * Indica se o cadastro do produto está inativo (S/N).
      * Recomenda-se armazenar como VARCHAR(1).
      */
-    protected string $inativo;
+    protected ?string $inativo = null;
 }
-
-

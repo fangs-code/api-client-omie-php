@@ -20,6 +20,7 @@ class ClientesHandler extends OmieApiHandler
     const ACTION_ALTERAR = 'AlterarCliente';
     const ACTION_EXCLUIR = 'ExcluirCliente';
 
+
     /**
      * @param string     $action
      * @param array|null $param
@@ -101,6 +102,7 @@ class ClientesHandler extends OmieApiHandler
 
         return $object;
     }
+
 
     /**
      * @return array
@@ -461,5 +463,3 @@ class ClientesHandler extends OmieApiHandler
         return $this->hidrateStatus($result);
     }
 }
-
-

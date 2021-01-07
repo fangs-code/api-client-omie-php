@@ -35,8 +35,6 @@ class ProdutosHandler extends OmieApiHandler
      */
     public function listar()
     {
-        echo "listar produtos";
-
         $produtosList = [];
 
         $page = 0;
@@ -56,12 +54,6 @@ class ProdutosHandler extends OmieApiHandler
             foreach ($result['produto_servico_cadastro'] as $cadastro) {
                 $produtoOmie = new ProdutoEntityOmieModel();
                 //$produtoOmie->setCodigoProduto($cadastro['codigo_produto']);
-                /*
-                $produtoOmie->setCodigo($cadastro['codigo']);
-                $produtoOmie->setDescricao($cadastro['descricao']);
-                $produtoOmie->setEstoque($cadastro['quantidade_estoque']);
-                $produtoOmie->setValorUnitario($cadastro['valor_unitario']);
-                */
 
                 $produtosList[] = $produtoOmie;
             }
@@ -75,22 +67,22 @@ class ProdutosHandler extends OmieApiHandler
 
     public function incluir()
     {
-        echo "listar produtos";
+
     }
 
     public function alterar()
     {
-        echo "listar produtos";
+
     }
 
     public function excluir()
     {
-        echo "listar produtos";
+
     }
 
     public function consultar()
     {
-        echo "listar produtos";
+
     }
 }
 

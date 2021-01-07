@@ -1109,5 +1109,3 @@ class ClienteEntityOmieModel
         return $this;
     }
 }
-
-
