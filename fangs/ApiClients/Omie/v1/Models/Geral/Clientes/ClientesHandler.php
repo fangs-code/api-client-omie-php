@@ -37,7 +37,7 @@ class ClientesHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel
      */
-    private function hidrateObject(array $data)
+    private function hidrateEntity(array $data)
     {
         $object = new ClienteEntityOmieModel();
         $object->setIdOmie($data['codigo_cliente_omie']);
@@ -87,6 +87,22 @@ class ClientesHandler extends OmieApiHandler
     }
 
     /**
+     * @param array $data
+     *
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteStatusOmieModel
+     */
+    private function hidrateStatus(array $data)
+    {
+        $object = new ClienteStatusOmieModel();
+        $object->setIdOmie($data['codigo_cliente_omie']);
+        $object->setIdIntegracao($data['codigo_cliente_integracao']);
+        $object->setCodigoStatus($data['codigo_status']);
+        $object->setDescricaoStatus($data['descricao_status']);
+
+        return $object;
+    }
+
+    /**
      * @return array
      * @throws \Exception
      */
@@ -108,7 +124,7 @@ class ClientesHandler extends OmieApiHandler
             $result = $this->request(self::ACTION_LISTAR, $param);
 
             foreach ($result['clientes_cadastro'] as $cadastro) {
-                $list[] = $this->hidrateObject($cadastro);
+                $list[] = $this->hidrateEntity($cadastro);
             }
 
             $totalPages = $result['total_de_paginas'];
@@ -138,7 +154,7 @@ class ClientesHandler extends OmieApiHandler
 
         $result = $this->request(self::ACTION_CONSULTAR, $param);
 
-        return $this->hidrateObject($result);
+        return $this->hidrateEntity($result);
     }
 
     public function incluir()
@@ -154,7 +170,7 @@ class ClientesHandler extends OmieApiHandler
     /**
      * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteExcluirRequestOmieModel $requestModel
      *
-     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteStatusOmieModel
      * @throws \Exception
      */
     public function excluir(ClienteExcluirRequestOmieModel $requestModel)
@@ -171,7 +187,7 @@ class ClientesHandler extends OmieApiHandler
 
         $result = $this->request(self::ACTION_EXCLUIR, $param);
 
-        return $this->hidrateObject($result);
+        return $this->hidrateStatus($result);
     }
 
 
