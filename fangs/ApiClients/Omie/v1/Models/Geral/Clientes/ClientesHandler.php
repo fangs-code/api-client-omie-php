@@ -18,7 +18,7 @@ class ClientesHandler extends OmieApiHandler
     const ACTION_CONSULTAR = 'ConsultarCliente';
     const ACTION_INCLUIR = 'IncluirCliente';
     const ACTION_ALTERAR = 'IncluirCliente';
-    const ACTION_EXCLUIR = 'IncluirCliente';
+    const ACTION_EXCLUIR = 'ExcluirCliente';
 
     /**
      * @param string     $action
@@ -151,9 +151,27 @@ class ClientesHandler extends OmieApiHandler
 
     }
 
-    public function excluir()
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteExcluirRequestOmieModel $requestModel
+     *
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel
+     * @throws \Exception
+     */
+    public function excluir(ClienteExcluirRequestOmieModel $requestModel)
     {
+        $param = [];
 
+        if ($requestModel->getIdOmie()) {
+            $param['codigo_cliente_omie'] = $requestModel->getIdOmie();
+        }
+
+        if ($requestModel->getIdIntegracao()) {
+            $param['codigo_cliente_integracao'] = $requestModel->getIdIntegracao();
+        }
+
+        $result = $this->request(self::ACTION_EXCLUIR, $param);
+
+        return $this->hidrateObject($result);
     }
 
 

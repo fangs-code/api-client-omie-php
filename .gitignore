@@ -8,3 +8,4 @@ phpunit.xml
 data/DoctrineORMModule/*
 .idea/
 error_log
+index.php
