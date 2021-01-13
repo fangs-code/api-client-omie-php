@@ -31,6 +31,19 @@ class OmieApiClient
         $this->clientes = new ClientesHandler($config);
     }
 
+    /**
+     * @return bool
+     */
+    public function testConfiguration()
+    {
+        try {
+            $this->clientes->listar();
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
 
     /**
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutosHandler
