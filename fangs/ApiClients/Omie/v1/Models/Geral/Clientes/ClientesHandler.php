@@ -1,6 +1,7 @@
 <?php
 namespace Fangs\ApiClients\Omie\v1\Models\Geral\Clientes;
 
+use Exception;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -19,6 +20,7 @@ class ClientesHandler extends OmieApiHandler
     const ACTION_INCLUIR = 'IncluirCliente';
     const ACTION_ALTERAR = 'AlterarCliente';
     const ACTION_EXCLUIR = 'ExcluirCliente';
+    const ACTION_INCLUIR_OU_ALTERAR_POR_LOTE = 'UpsertClientesPorLote';
 
 
     /**
@@ -103,9 +105,148 @@ class ClientesHandler extends OmieApiHandler
         return $object;
     }
 
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel $entity
+     *
+     * @return array
+     */
+    private function mountArrayFromEntity(ClienteEntityOmieModel $entity)
+    {
+        $entityArrayData = [];
+
+        if ($entity->getIdOmie()) {
+            $entityArrayData['codigo_cliente_omie'] = $entity->getIdOmie();
+        }
+        if ($entity->getIdIntegracao()) {
+            $entityArrayData['codigo_cliente_integracao'] = $entity->getIdIntegracao();
+        }
+        if ($entity->getRazaoSocial()) {
+            $entityArrayData['razao_social'] = $entity->getRazaoSocial();
+        }
+        if ($entity->getCnpjCpf()) {
+            $entityArrayData['cnpj_cpf'] = $entity->getCnpjCpf();
+        }
+        if ($entity->getNomeFantasia()) {
+            $entityArrayData['nome_fantasia'] = $entity->getNomeFantasia();
+        }
+        if ($entity->getTelefone1Ddd()) {
+            $entityArrayData['telefone1_ddd'] = $entity->getTelefone1Ddd();
+        }
+        if ($entity->getTelefone1Numero()) {
+            $entityArrayData['telefone1_numero'] = $entity->getTelefone1Numero();
+        }
+        if ($entity->getContato()) {
+            $entityArrayData['contato'] = $entity->getContato();
+        }
+        if ($entity->getEndereco()) {
+            $entityArrayData['endereco'] = $entity->getEndereco();
+        }
+        if ($entity->getEnderecoNumero()) {
+            $entityArrayData['endereco_numero'] = $entity->getEnderecoNumero();
+        }
+        if ($entity->getBairro()) {
+            $entityArrayData['bairro'] = $entity->getBairro();
+        }
+        if ($entity->getComplemento()) {
+            $entityArrayData['complemento'] = $entity->getComplemento();
+        }
+        if ($entity->getEstado()) {
+            $entityArrayData['estado'] = $entity->getEstado();
+        }
+        if ($entity->getCidade()) {
+            $entityArrayData['cidade'] = $entity->getCidade();
+        }
+        if ($entity->getCep()) {
+            $entityArrayData['cep'] = $entity->getCep();
+        }
+        if ($entity->getPais()) {
+            $entityArrayData['codigo_pais'] = $entity->getPais();
+        }
+        if ($entity->getTelefone2Ddd()) {
+            $entityArrayData['telefone2_ddd'] = $entity->getTelefone2Ddd();
+        }
+        if ($entity->getTelefone2Numero()) {
+            $entityArrayData['telefone2_numero'] = $entity->getTelefone2Numero();
+        }
+        if ($entity->getFaxDdd()) {
+            $entityArrayData['fax_ddd'] = $entity->getFaxDdd();
+        }
+        if ($entity->getFaxNumero()) {
+            $entityArrayData['fax_numero'] = $entity->getFaxNumero();
+        }
+        if ($entity->getEmail()) {
+            $entityArrayData['email'] = $entity->getEmail();
+        }
+        if ($entity->getHomePage()) {
+            $entityArrayData['homepage'] = $entity->getHomePage();
+        }
+        if ($entity->getInscricaoEstadual()) {
+            $entityArrayData['inscricao_estadual'] = $entity->getInscricaoEstadual();
+        }
+        if ($entity->getInscricaoMunicipal()) {
+            $entityArrayData['inscricao_municipal'] = $entity->getInscricaoMunicipal();
+        }
+        if ($entity->getInscricaoSuframa()) {
+            $entityArrayData['inscricao_suframa'] = $entity->getInscricaoSuframa();
+        }
+        if ($entity->getOptanteSimplesNacional()) {
+            $entityArrayData['optante_simples_nacional'] = $entity->getOptanteSimplesNacional();
+        }
+        if ($entity->getTipoAtividade()) {
+            $entityArrayData['tipo_atividade'] = $entity->getTipoAtividade();
+        }
+        if ($entity->getCnae()) {
+            $entityArrayData['cnae'] = $entity->getCnae();
+        }
+        if ($entity->getProdutorRural()) {
+            $entityArrayData['produtor_rural'] = $entity->getProdutorRural();
+        }
+        if ($entity->getContribuinte()) {
+            $entityArrayData['contribuinte'] = $entity->getContribuinte();
+        }
+        if ($entity->getObservacao()) {
+            $entityArrayData['observacao'] = $entity->getObservacao();
+        }
+        if ($entity->getObservacaoDetalhada()) {
+            $entityArrayData['obs_detalhadas'] = $entity->getObservacaoDetalhada();
+        }
+        if ($entity->getRecomendacaoAtraso()) {
+            $entityArrayData['recomendacao_atraso'] = $entity->getRecomendacaoAtraso();
+        }
+        if ($entity->getPessoaFisica()) {
+            $entityArrayData['pessoa_fisica'] = $entity->getPessoaFisica();
+        }
+        if ($entity->getExterior()) {
+            $entityArrayData['exterior'] = $entity->getExterior();
+        }
+        if ($entity->getImportadoApi()) {
+            $entityArrayData['importado_api'] = $entity->getImportadoApi();
+        }
+        if ($entity->getCidadeIbge()) {
+            $entityArrayData['cidade_ibge'] = $entity->getCidadeIbge();
+        }
+        if ($entity->getValorLimiteCredito()) {
+            $entityArrayData['valor_limite_credito'] = $entity->getValorLimiteCredito();
+        }
+        if ($entity->getBloquearFaturamento()) {
+            $entityArrayData['bloquear_faturamento'] = $entity->getBloquearFaturamento();
+        }
+        if ($entity->getNif()) {
+            $entityArrayData['nif'] = $entity->getNif();
+        }
+        if ($entity->getInativo()) {
+            $entityArrayData['inativo'] = $entity->getInativo();
+        }
+        if ($entity->getBloquearExclusao()) {
+            $entityArrayData['bloquear_exclusao'] = $entity->getBloquearExclusao();
+        }
+
+        return $entityArrayData;
+    }
+
 
     /**
-     * @return array
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel[]
      * @throws \Exception
      */
     public function listar()
@@ -167,133 +308,7 @@ class ClientesHandler extends OmieApiHandler
      */
     public function incluir(ClienteEntityOmieModel $requestModel)
     {
-        $param = [];
-
-        if ($requestModel->getIdIntegracao()) {
-            $param['codigo_cliente_integracao'] = $requestModel->getIdIntegracao();
-        }
-        if ($requestModel->getRazaoSocial()) {
-            $param['razao_social'] = $requestModel->getRazaoSocial();
-        }
-        if ($requestModel->getCnpjCpf()) {
-            $param['cnpj_cpf'] = $requestModel->getCnpjCpf();
-        }
-        if ($requestModel->getNomeFantasia()) {
-            $param['nome_fantasia'] = $requestModel->getNomeFantasia();
-        }
-        if ($requestModel->getTelefone1Ddd()) {
-            $param['telefone1_ddd'] = $requestModel->getTelefone1Ddd();
-        }
-        if ($requestModel->getTelefone1Numero()) {
-            $param['telefone1_numero'] = $requestModel->getTelefone1Numero();
-        }
-        if ($requestModel->getContato()) {
-            $param['contato'] = $requestModel->getContato();
-        }
-        if ($requestModel->getEndereco()) {
-            $param['endereco'] = $requestModel->getEndereco();
-        }
-        if ($requestModel->getEnderecoNumero()) {
-            $param['endereco_numero'] = $requestModel->getEnderecoNumero();
-        }
-        if ($requestModel->getBairro()) {
-            $param['bairro'] = $requestModel->getBairro();
-        }
-        if ($requestModel->getComplemento()) {
-            $param['complemento'] = $requestModel->getComplemento();
-        }
-        if ($requestModel->getEstado()) {
-            $param['estado'] = $requestModel->getEstado();
-        }
-        if ($requestModel->getCidade()) {
-            $param['cidade'] = $requestModel->getCidade();
-        }
-        if ($requestModel->getCep()) {
-            $param['cep'] = $requestModel->getCep();
-        }
-        if ($requestModel->getPais()) {
-            $param['codigo_pais'] = $requestModel->getPais();
-        }
-        if ($requestModel->getTelefone2Ddd()) {
-            $param['telefone2_ddd'] = $requestModel->getTelefone2Ddd();
-        }
-        if ($requestModel->getTelefone2Numero()) {
-            $param['telefone2_numero'] = $requestModel->getTelefone2Numero();
-        }
-        if ($requestModel->getFaxDdd()) {
-            $param['fax_ddd'] = $requestModel->getFaxDdd();
-        }
-        if ($requestModel->getFaxNumero()) {
-            $param['fax_numero'] = $requestModel->getFaxNumero();
-        }
-        if ($requestModel->getEmail()) {
-            $param['email'] = $requestModel->getEmail();
-        }
-        if ($requestModel->getHomePage()) {
-            $param['homepage'] = $requestModel->getHomePage();
-        }
-        if ($requestModel->getInscricaoEstadual()) {
-            $param['inscricao_estadual'] = $requestModel->getInscricaoEstadual();
-        }
-        if ($requestModel->getInscricaoMunicipal()) {
-            $param['inscricao_municipal'] = $requestModel->getInscricaoMunicipal();
-        }
-        if ($requestModel->getInscricaoSuframa()) {
-            $param['inscricao_suframa'] = $requestModel->getInscricaoSuframa();
-        }
-        if ($requestModel->getOptanteSimplesNacional()) {
-            $param['optante_simples_nacional'] = $requestModel->getOptanteSimplesNacional();
-        }
-        if ($requestModel->getTipoAtividade()) {
-            $param['tipo_atividade'] = $requestModel->getTipoAtividade();
-        }
-        if ($requestModel->getCnae()) {
-            $param['cnae'] = $requestModel->getCnae();
-        }
-        if ($requestModel->getProdutorRural()) {
-            $param['produtor_rural'] = $requestModel->getProdutorRural();
-        }
-        if ($requestModel->getContribuinte()) {
-            $param['contribuinte'] = $requestModel->getContribuinte();
-        }
-        if ($requestModel->getObservacao()) {
-            $param['observacao'] = $requestModel->getObservacao();
-        }
-        if ($requestModel->getObservacaoDetalhada()) {
-            $param['obs_detalhadas'] = $requestModel->getObservacaoDetalhada();
-        }
-        if ($requestModel->getRecomendacaoAtraso()) {
-            $param['recomendacao_atraso'] = $requestModel->getRecomendacaoAtraso();
-        }
-        if ($requestModel->getPessoaFisica()) {
-            $param['pessoa_fisica'] = $requestModel->getPessoaFisica();
-        }
-        if ($requestModel->getExterior()) {
-            $param['exterior'] = $requestModel->getExterior();
-        }
-        if ($requestModel->getImportadoApi()) {
-            $param['importado_api'] = $requestModel->getImportadoApi();
-        }
-        if ($requestModel->getCidadeIbge()) {
-            $param['cidade_ibge'] = $requestModel->getCidadeIbge();
-        }
-        if ($requestModel->getValorLimiteCredito()) {
-            $param['valor_limite_credito'] = $requestModel->getValorLimiteCredito();
-        }
-        if ($requestModel->getBloquearFaturamento()) {
-            $param['bloquear_faturamento'] = $requestModel->getBloquearFaturamento();
-        }
-        if ($requestModel->getNif()) {
-            $param['nif'] = $requestModel->getNif();
-        }
-        if ($requestModel->getInativo()) {
-            $param['inativo'] = $requestModel->getInativo();
-        }
-        if ($requestModel->getBloquearExclusao()) {
-            $param['bloquear_exclusao'] = $requestModel->getBloquearExclusao();
-        }
-
-        $result = $this->request(self::ACTION_INCLUIR, $param);
+        $result = $this->request(self::ACTION_INCLUIR, $this->mountArrayFromEntity($requestModel));
 
         return $this->hidrateStatus($result);
     }
@@ -306,136 +321,7 @@ class ClientesHandler extends OmieApiHandler
      */
     public function alterar(ClienteEntityOmieModel $requestModel)
     {
-        $param = [];
-
-        if ($requestModel->getIdOmie()) {
-            $param['codigo_cliente_omie'] = $requestModel->getIdOmie();
-        }
-        if ($requestModel->getIdIntegracao()) {
-            $param['codigo_cliente_integracao'] = $requestModel->getIdIntegracao();
-        }
-        if ($requestModel->getRazaoSocial()) {
-            $param['razao_social'] = $requestModel->getRazaoSocial();
-        }
-        if ($requestModel->getCnpjCpf()) {
-            $param['cnpj_cpf'] = $requestModel->getCnpjCpf();
-        }
-        if ($requestModel->getNomeFantasia()) {
-            $param['nome_fantasia'] = $requestModel->getNomeFantasia();
-        }
-        if ($requestModel->getTelefone1Ddd()) {
-            $param['telefone1_ddd'] = $requestModel->getTelefone1Ddd();
-        }
-        if ($requestModel->getTelefone1Numero()) {
-            $param['telefone1_numero'] = $requestModel->getTelefone1Numero();
-        }
-        if ($requestModel->getContato()) {
-            $param['contato'] = $requestModel->getContato();
-        }
-        if ($requestModel->getEndereco()) {
-            $param['endereco'] = $requestModel->getEndereco();
-        }
-        if ($requestModel->getEnderecoNumero()) {
-            $param['endereco_numero'] = $requestModel->getEnderecoNumero();
-        }
-        if ($requestModel->getBairro()) {
-            $param['bairro'] = $requestModel->getBairro();
-        }
-        if ($requestModel->getComplemento()) {
-            $param['complemento'] = $requestModel->getComplemento();
-        }
-        if ($requestModel->getEstado()) {
-            $param['estado'] = $requestModel->getEstado();
-        }
-        if ($requestModel->getCidade()) {
-            $param['cidade'] = $requestModel->getCidade();
-        }
-        if ($requestModel->getCep()) {
-            $param['cep'] = $requestModel->getCep();
-        }
-        if ($requestModel->getPais()) {
-            $param['codigo_pais'] = $requestModel->getPais();
-        }
-        if ($requestModel->getTelefone2Ddd()) {
-            $param['telefone2_ddd'] = $requestModel->getTelefone2Ddd();
-        }
-        if ($requestModel->getTelefone2Numero()) {
-            $param['telefone2_numero'] = $requestModel->getTelefone2Numero();
-        }
-        if ($requestModel->getFaxDdd()) {
-            $param['fax_ddd'] = $requestModel->getFaxDdd();
-        }
-        if ($requestModel->getFaxNumero()) {
-            $param['fax_numero'] = $requestModel->getFaxNumero();
-        }
-        if ($requestModel->getEmail()) {
-            $param['email'] = $requestModel->getEmail();
-        }
-        if ($requestModel->getHomePage()) {
-            $param['homepage'] = $requestModel->getHomePage();
-        }
-        if ($requestModel->getInscricaoEstadual()) {
-            $param['inscricao_estadual'] = $requestModel->getInscricaoEstadual();
-        }
-        if ($requestModel->getInscricaoMunicipal()) {
-            $param['inscricao_municipal'] = $requestModel->getInscricaoMunicipal();
-        }
-        if ($requestModel->getInscricaoSuframa()) {
-            $param['inscricao_suframa'] = $requestModel->getInscricaoSuframa();
-        }
-        if ($requestModel->getOptanteSimplesNacional()) {
-            $param['optante_simples_nacional'] = $requestModel->getOptanteSimplesNacional();
-        }
-        if ($requestModel->getTipoAtividade()) {
-            $param['tipo_atividade'] = $requestModel->getTipoAtividade();
-        }
-        if ($requestModel->getCnae()) {
-            $param['cnae'] = $requestModel->getCnae();
-        }
-        if ($requestModel->getProdutorRural()) {
-            $param['produtor_rural'] = $requestModel->getProdutorRural();
-        }
-        if ($requestModel->getContribuinte()) {
-            $param['contribuinte'] = $requestModel->getContribuinte();
-        }
-        if ($requestModel->getObservacao()) {
-            $param['observacao'] = $requestModel->getObservacao();
-        }
-        if ($requestModel->getObservacaoDetalhada()) {
-            $param['obs_detalhadas'] = $requestModel->getObservacaoDetalhada();
-        }
-        if ($requestModel->getRecomendacaoAtraso()) {
-            $param['recomendacao_atraso'] = $requestModel->getRecomendacaoAtraso();
-        }
-        if ($requestModel->getPessoaFisica()) {
-            $param['pessoa_fisica'] = $requestModel->getPessoaFisica();
-        }
-        if ($requestModel->getExterior()) {
-            $param['exterior'] = $requestModel->getExterior();
-        }
-        if ($requestModel->getImportadoApi()) {
-            $param['importado_api'] = $requestModel->getImportadoApi();
-        }
-        if ($requestModel->getCidadeIbge()) {
-            $param['cidade_ibge'] = $requestModel->getCidadeIbge();
-        }
-        if ($requestModel->getValorLimiteCredito()) {
-            $param['valor_limite_credito'] = $requestModel->getValorLimiteCredito();
-        }
-        if ($requestModel->getBloquearFaturamento()) {
-            $param['bloquear_faturamento'] = $requestModel->getBloquearFaturamento();
-        }
-        if ($requestModel->getNif()) {
-            $param['nif'] = $requestModel->getNif();
-        }
-        if ($requestModel->getInativo()) {
-            $param['inativo'] = $requestModel->getInativo();
-        }
-        if ($requestModel->getBloquearExclusao()) {
-            $param['bloquear_exclusao'] = $requestModel->getBloquearExclusao();
-        }
-
-        $result = $this->request(self::ACTION_ALTERAR, $param);
+        $result = $this->request(self::ACTION_ALTERAR, $this->mountArrayFromEntity($requestModel));
 
         return $this->hidrateStatus($result);
     }
@@ -462,4 +348,47 @@ class ClientesHandler extends OmieApiHandler
 
         return $this->hidrateStatus($result);
     }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel[] $requestModels
+     *
+     * @return array
+     */
+    public function incluirOuAlterarPorLote(array $requestModels)
+    {
+        // Separar por lotes de 50 registros
+        $chunks = array_chunk($requestModels, 50);
+        $chunksResults = [];
+
+        // Processar cada lote
+        $chunkNumber = 1;
+        foreach ($chunks as $chunkOfRequestModels) {
+            $param = [
+                "clientes_cadastro" => [],
+                "lote"              => $chunkNumber,
+            ];
+
+            foreach ($chunkOfRequestModels as $requestModel) {
+                $array = $this->mountArrayFromEntity($requestModel);
+
+                if (!isset($array['codigo_cliente_integracao'])) {
+                    $array['codigo_cliente_integracao'] = $array['codigo_cliente_omie'];
+                }
+
+                $param['clientes_cadastro'][] = $array;
+            }
+
+            try {
+                $chunksResults[$chunkNumber] = $this->request(self::ACTION_INCLUIR_OU_ALTERAR_POR_LOTE, $param);
+            } catch (Exception $e) {
+                $chunksResults[$chunkNumber] = $e->getMessage();
+            }
+
+            $chunkNumber++;
+        }
+
+        return $chunksResults;
+    }
+
+
 }
