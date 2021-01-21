@@ -389,6 +389,4 @@ class ClientesHandler extends OmieApiHandler
 
         return $chunksResults;
     }
-
-
 }
