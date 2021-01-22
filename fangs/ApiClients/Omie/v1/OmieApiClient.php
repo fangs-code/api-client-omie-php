@@ -3,6 +3,7 @@ namespace Fangs\ApiClients\Omie\v1;
 
 use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClientesHandler;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutosHandler;
+use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelasDePrecosHandler;
 
 
 /**
@@ -16,6 +17,7 @@ use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutosHandler;
 class OmieApiClient
 {
     protected ProdutosHandler $produtos;
+    protected TabelasDePrecosHandler $tabelasDePrecos;
     protected ClientesHandler $clientes;
 
 
@@ -28,6 +30,7 @@ class OmieApiClient
         OmieApiConfig $config
     ) {
         $this->produtos = new ProdutosHandler($config);
+        $this->tabelasDePrecos = new TabelasDePrecosHandler($config);
         $this->clientes = new ClientesHandler($config);
     }
 
@@ -51,6 +54,14 @@ class OmieApiClient
     public function produtos(): ProdutosHandler
     {
         return $this->produtos;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelasDePrecosHandler
+     */
+    public function tabelasDePrecos(): TabelasDePrecosHandler
+    {
+        return $this->tabelasDePrecos;
     }
 
     /**
