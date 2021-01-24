@@ -1,6 +1,12 @@
 <?php
 namespace Fangs\ApiClients\Omie\v1\Models\Geral\Clientes;
 
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\DadosBancariosSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo;
+
 /**
  * Class ClienteEntityOmieModel.
  *
@@ -265,6 +271,33 @@ class ClienteEntityOmieModel
      * Recomenda-se armazenar como VARCHAR(1).
      */
     protected ?string $bloquearExclusao = null;
+
+    /**
+     * Informações sobre o cadastro do cliente.
+     */
+    protected ?InfoSubModelo $info = null;
+
+    /**
+     * @var TagSubModelo[]
+     *
+     * Tags do Cliente ou Fornecedor.
+     */
+    protected ?array $tags = null;
+
+    /**
+     * Recomendações do cliente.
+     */
+    protected ?RecomendacoesSubModelo $recomendacoes = null;
+
+    /**
+     * Dados do Endereço de Entrega.
+     */
+    protected ?EnderecoEntregaSubModelo $enderecoEntrega = null;
+
+    /**
+     * Dados Bancários do cliente.
+     */
+    protected ?DadosBancariosSubModelo $dadosBancarios = null;
 
 
     /* GETTERS/SETTERS */
@@ -1105,6 +1138,106 @@ class ClienteEntityOmieModel
     public function setBloquearExclusao(?string $bloquearExclusao): ClienteEntityOmieModel
     {
         $this->bloquearExclusao = $bloquearExclusao;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo|null
+     */
+    public function getInfo(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo|null $info
+     *
+     * @return ClienteEntityOmieModel
+     */
+    public function setInfo(?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo $info): ClienteEntityOmieModel
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo[]
+     */
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo[] $tags
+     *
+     * @return ClienteEntityOmieModel
+     */
+    public function setTags(array $tags): ClienteEntityOmieModel
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo|null
+     */
+    public function getRecomendacoes(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo
+    {
+        return $this->recomendacoes;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo|null $recomendacoes
+     *
+     * @return ClienteEntityOmieModel
+     */
+    public function setRecomendacoes(?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo $recomendacoes): ClienteEntityOmieModel
+    {
+        $this->recomendacoes = $recomendacoes;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSubModelo|null
+     */
+    public function getEnderecoEntrega(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSubModelo
+    {
+        return $this->enderecoEntrega;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSubModelo|null $enderecoEntrega
+     *
+     * @return ClienteEntityOmieModel
+     */
+    public function setEnderecoEntrega(?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSubModelo $enderecoEntrega): ClienteEntityOmieModel
+    {
+        $this->enderecoEntrega = $enderecoEntrega;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\DadosBancariosSubModelo|null
+     */
+    public function getDadosBancarios(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\DadosBancariosSubModelo
+    {
+        return $this->dadosBancarios;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\DadosBancariosSubModelo|null $dadosBancarios
+     *
+     * @return ClienteEntityOmieModel
+     */
+    public function setDadosBancarios(?\Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\DadosBancariosSubModelo $dadosBancarios): ClienteEntityOmieModel
+    {
+        $this->dadosBancarios = $dadosBancarios;
 
         return $this;
     }

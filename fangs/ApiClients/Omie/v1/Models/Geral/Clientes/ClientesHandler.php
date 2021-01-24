@@ -2,6 +2,11 @@
 namespace Fangs\ApiClients\Omie\v1\Models\Geral\Clientes;
 
 use Exception;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\DadosBancariosSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -85,6 +90,56 @@ class ClientesHandler extends OmieApiHandler
         $object->setNif($data['nif']);
         $object->setInativo($data['inativo']);
         $object->setBloquearExclusao($data['bloquear_exclusao']);
+
+        // Info
+        $infoSubModelo = new InfoSubModelo();
+        $infoSubModelo->setDataInclusao($data['info']['dInc']);
+        $infoSubModelo->setHoraInclusao($data['info']['hInc']);
+        $infoSubModelo->setUsuarioInclusao($data['info']['uInc']);
+        $infoSubModelo->setDataAlteracao($data['info']['dAlt']);
+        $infoSubModelo->setHoraAlteracao($data['info']['hAlt']);
+        $infoSubModelo->setUsuarioAlteracao($data['info']['uAlt']);
+        $infoSubModelo->setImportadoPelaApi($data['info']['cImpAPI']);
+        $object->setInfo($infoSubModelo);
+
+        // Tags
+        $tags = [];
+        foreach ($data['tags'] as $tag) {
+            $tagSubModelo = new TagSubModelo();
+            $tagSubModelo->setTag($tag['tag']);
+
+            $tags[] = $tagSubModelo;
+        }
+        $object->setTags($tags);
+
+        // Recomendações
+        $recomendacoesSubModelo = new RecomendacoesSubModelo();
+        $recomendacoesSubModelo->setNumeroParcelas($data['recomendacoes']['numero_parcelas']);
+        $recomendacoesSubModelo->setCodigoVendedor($data['recomendacoes']['codigo_vendedor']);
+        $recomendacoesSubModelo->setEmailFatura($data['recomendacoes']['email_fatura']);
+        $recomendacoesSubModelo->setGerarBoletos($data['recomendacoes']['gerar_boletos']);
+        $object->setRecomendacoes($recomendacoesSubModelo);
+
+        // Endereço de Entrega
+        $enderecoEntregaSubModelo = new EnderecoEntregaSubModelo();
+        $enderecoEntregaSubModelo->setCnpjCpf($data['enderecoEntrega']['entCnpjCpf']);
+        $enderecoEntregaSubModelo->setEndereco($data['enderecoEntrega']['entEndereco']);
+        $enderecoEntregaSubModelo->setNumero($data['enderecoEntrega']['entNumero']);
+        $enderecoEntregaSubModelo->setComplemento($data['enderecoEntrega']['entComplemento']);
+        $enderecoEntregaSubModelo->setBairro($data['enderecoEntrega']['entBairro']);
+        $enderecoEntregaSubModelo->setCep($data['enderecoEntrega']['entCEP']);
+        $enderecoEntregaSubModelo->setEstado($data['enderecoEntrega']['entEstado']);
+        $enderecoEntregaSubModelo->setCidade($data['enderecoEntrega']['entCidade']);
+        $object->setEnderecoEntrega($enderecoEntregaSubModelo);
+
+        // Dados Bancários
+        $dadosBancariosSubModelo = new DadosBancariosSubModelo();
+        $dadosBancariosSubModelo->setCodigoBanco($data['dadosBancarios']['codigo_banco']);
+        $dadosBancariosSubModelo->setAgencia($data['dadosBancarios']['agencia']);
+        $dadosBancariosSubModelo->setContaCorrente($data['dadosBancarios']['conta_corrente']);
+        $dadosBancariosSubModelo->setDocTitular($data['dadosBancarios']['doc_titular']);
+        $dadosBancariosSubModelo->setNomeTitular($data['dadosBancarios']['nome_titular']);
+        $object->setDadosBancarios($dadosBancariosSubModelo);
 
         return $object;
     }
@@ -239,6 +294,112 @@ class ClientesHandler extends OmieApiHandler
         }
         if ($entity->getBloquearExclusao()) {
             $entityArrayData['bloquear_exclusao'] = $entity->getBloquearExclusao();
+        }
+
+        // Info
+        if ($entity->getInfo()) {
+            $entityArrayData['info'] = [];
+
+            if ($entity->getInfo()->getDataInclusao()) {
+                $entityArrayData['info']['dInc'] = $entity->getInfo()->getDataInclusao();
+            }
+            if ($entity->getInfo()->getHoraInclusao()) {
+                $entityArrayData['info']['hInc'] = $entity->getInfo()->getHoraInclusao();
+            }
+            if ($entity->getInfo()->getUsuarioInclusao()) {
+                $entityArrayData['info']['uInc'] = $entity->getInfo()->getUsuarioInclusao();
+            }
+            if ($entity->getInfo()->getDataAlteracao()) {
+                $entityArrayData['info']['dAlt'] = $entity->getInfo()->getDataAlteracao();
+            }
+            if ($entity->getInfo()->getHoraAlteracao()) {
+                $entityArrayData['info']['hAlt'] = $entity->getInfo()->getHoraAlteracao();
+            }
+            if ($entity->getInfo()->getUsuarioAlteracao()) {
+                $entityArrayData['info']['uAlt'] = $entity->getInfo()->getUsuarioAlteracao();
+            }
+            if ($entity->getInfo()->getImportadoPelaApi()) {
+                $entityArrayData['info']['cImpAPI'] = $entity->getInfo()->getImportadoPelaApi();
+            }
+        }
+
+        // Tags
+        if ($entity->getTags()) {
+            $entityArrayData['tags'] = [];
+
+            foreach ($entity->getTags() as $tag) {
+                $entityArrayData['tags'][] = ['tag' => $tag->getTag()];
+            }
+        }
+
+
+        // Recomendações
+        if ($entity->getRecomendacoes()) {
+            $entityArrayData['recomendacoes'] = [];
+
+            if ($entity->getRecomendacoes()->getNumeroParcelas()) {
+                $entityArrayData['recomendacoes']['numero_parcelas'] = $entity->getRecomendacoes()->getNumeroParcelas();
+            }
+            if ($entity->getRecomendacoes()->getCodigoVendedor()) {
+                $entityArrayData['recomendacoes']['codigo_vendedor'] = $entity->getRecomendacoes()->getCodigoVendedor();
+            }
+            if ($entity->getRecomendacoes()->getEmailFatura()) {
+                $entityArrayData['recomendacoes']['email_fatura'] = $entity->getRecomendacoes()->getEmailFatura();
+            }
+            if ($entity->getRecomendacoes()->getGerarBoletos()) {
+                $entityArrayData['recomendacoes']['gerar_boletos'] = $entity->getRecomendacoes()->getGerarBoletos();
+            }
+        }
+
+        // Endereço de Entrega
+        if ($entity->getEnderecoEntrega()) {
+            $entityArrayData['enderecoEntrega'] = [];
+
+            if ($entity->getEnderecoEntrega()->getCnpjCpf()) {
+                $entityArrayData['enderecoEntrega']['entCnpjCpf'] = $entity->getEnderecoEntrega()->getCnpjCpf();
+            }
+            if ($entity->getEnderecoEntrega()->getEndereco()) {
+                $entityArrayData['enderecoEntrega']['entEndereco'] = $entity->getEnderecoEntrega()->getEndereco();
+            }
+            if ($entity->getEnderecoEntrega()->getNumero()) {
+                $entityArrayData['enderecoEntrega']['entNumero'] = $entity->getEnderecoEntrega()->getNumero();
+            }
+            if ($entity->getEnderecoEntrega()->getComplemento()) {
+                $entityArrayData['enderecoEntrega']['entComplemento'] = $entity->getEnderecoEntrega()->getComplemento();
+            }
+            if ($entity->getEnderecoEntrega()->getBairro()) {
+                $entityArrayData['enderecoEntrega']['entBairro'] = $entity->getEnderecoEntrega()->getBairro();
+            }
+            if ($entity->getEnderecoEntrega()->getCep()) {
+                $entityArrayData['enderecoEntrega']['entCEP'] = $entity->getEnderecoEntrega()->getCep();
+            }
+            if ($entity->getEnderecoEntrega()->getEstado()) {
+                $entityArrayData['enderecoEntrega']['entEstado'] = $entity->getEnderecoEntrega()->getEstado();
+            }
+            if ($entity->getEnderecoEntrega()->getCidade()) {
+                $entityArrayData['enderecoEntrega']['entCidade'] = $entity->getEnderecoEntrega()->getCidade();
+            }
+        }
+
+        // Dados Bancários
+        if ($entity->getDadosBancarios()) {
+            $entityArrayData['dadosBancarios'] = [];
+
+            if ($entity->getDadosBancarios()->getCodigoBanco()) {
+                $entityArrayData['dadosBancarios']['codigo_banco'] = $entity->getDadosBancarios()->getCodigoBanco();
+            }
+            if ($entity->getDadosBancarios()->getAgencia()) {
+                $entityArrayData['dadosBancarios']['agencia'] = $entity->getDadosBancarios()->getAgencia();
+            }
+            if ($entity->getDadosBancarios()->getContaCorrente()) {
+                $entityArrayData['dadosBancarios']['conta_corrente'] = $entity->getDadosBancarios()->getContaCorrente();
+            }
+            if ($entity->getDadosBancarios()->getDocTitular()) {
+                $entityArrayData['dadosBancarios']['doc_titular'] = $entity->getDadosBancarios()->getDocTitular();
+            }
+            if ($entity->getDadosBancarios()->getNomeTitular()) {
+                $entityArrayData['dadosBancarios']['nome_titular'] = $entity->getDadosBancarios()->getNomeTitular();
+            }
         }
 
         return $entityArrayData;
