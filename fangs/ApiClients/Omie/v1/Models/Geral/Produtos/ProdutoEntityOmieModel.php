@@ -1,6 +1,13 @@
 <?php
 namespace Fangs\ApiClients\Omie\v1\Models\Geral\Produtos;
 
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\DadosIbptSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo;
+
 /**
  * Class ProdutoEntityOmieModel.
  *
@@ -270,6 +277,42 @@ class ProdutoEntityOmieModel
      * Recomenda-se armazenar como VARCHAR(1).
      */
     protected ?string $inativo = null;
+
+    /**
+     * Informações complementares do cadastro do produto.
+     */
+    protected ?InfoSubModelo $info = null;
+
+    /**
+     * Recomendações Fiscais.
+     */
+    protected ?RecomendacoesFiscaisSubModelo $recomendacoesFiscais = null;
+
+    /**
+     * Dados do IBPT.
+     */
+    protected ?DadosIbptSubModelo $dadosIbpt = null;
+
+    /**
+     * @var ImagemSubModelo[]
+     *
+     * Lista de imagens do produto.
+     */
+    protected ?array $imagens = null;
+
+    /**
+     * @var VideoSubModelo[]
+     *
+     * Lista de videos do produto.
+     */
+    protected ?array $videos = null;
+
+    /**
+     * @var CaracteristicaSubModelo[]
+     *
+     * Filtro por caracteristicas.
+     */
+    protected ?array $caracteristicas = null;
 
 
     /* GETTERS/SETTERS */
@@ -1090,6 +1133,126 @@ class ProdutoEntityOmieModel
     public function setInativo(?string $inativo): ProdutoEntityOmieModel
     {
         $this->inativo = $inativo;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo|null
+     */
+    public function getInfo(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo|null $info
+     *
+     * @return ProdutoEntityOmieModel
+     */
+    public function setInfo(?\Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo $info): ProdutoEntityOmieModel
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo|null
+     */
+    public function getRecomendacoesFiscais(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo
+    {
+        return $this->recomendacoesFiscais;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo|null $recomendacoesFiscais
+     *
+     * @return ProdutoEntityOmieModel
+     */
+    public function setRecomendacoesFiscais(?\Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo $recomendacoesFiscais): ProdutoEntityOmieModel
+    {
+        $this->recomendacoesFiscais = $recomendacoesFiscais;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\DadosIbptSubModelo|null
+     */
+    public function getDadosIbpt(): ?\Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\DadosIbptSubModelo
+    {
+        return $this->dadosIbpt;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\DadosIbptSubModelo|null $dadosIbpt
+     *
+     * @return ProdutoEntityOmieModel
+     */
+    public function setDadosIbpt(?\Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\DadosIbptSubModelo $dadosIbpt): ProdutoEntityOmieModel
+    {
+        $this->dadosIbpt = $dadosIbpt;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo[]
+     */
+    public function getImagens(): array
+    {
+        return $this->imagens;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo[] $imagens
+     *
+     * @return ProdutoEntityOmieModel
+     */
+    public function setImagens(array $imagens): ProdutoEntityOmieModel
+    {
+        $this->imagens = $imagens;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo[]
+     */
+    public function getVideos(): array
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo[] $videos
+     *
+     * @return ProdutoEntityOmieModel
+     */
+    public function setVideos(array $videos): ProdutoEntityOmieModel
+    {
+        $this->videos = $videos;
+
+        return $this;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo[]
+     */
+    public function getCaracteristicas(): array
+    {
+        return $this->caracteristicas;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo[] $caracteristicas
+     *
+     * @return ProdutoEntityOmieModel
+     */
+    public function setCaracteristicas(array $caracteristicas): ProdutoEntityOmieModel
+    {
+        $this->caracteristicas = $caracteristicas;
 
         return $this;
     }

@@ -2,6 +2,12 @@
 namespace Fangs\ApiClients\Omie\v1\Models\Geral\Produtos;
 
 use Exception;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\DadosIbptSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -85,17 +91,80 @@ class ProdutosHandler extends OmieApiHandler
         $object->setImportadoApi($data['importado_api']);
         $object->setInativo($data['inativo']);
 
-        // Imagens
-
-        // Vídeos
-
-        // Características
-
         // Info
+        $infoSubModelo = new InfoSubModelo();
+        $infoSubModelo->setDataInclusao($data['info']['dInc']);
+        $infoSubModelo->setHoraInclusao($data['info']['hInc']);
+        $infoSubModelo->setUsuarioInclusao($data['info']['uInc']);
+        $infoSubModelo->setDataAlteracao($data['info']['dAlt']);
+        $infoSubModelo->setHoraAlteracao($data['info']['hAlt']);
+        $infoSubModelo->setUsuarioAlteracao($data['info']['uAlt']);
+        $infoSubModelo->setImportadoPelaApi($data['info']['cImpAPI']);
+        $object->setInfo($infoSubModelo);
 
         // Recomendações Fiscais
+        $recomendacoesFiscaisSubModelo = new RecomendacoesFiscaisSubModelo();
+        $recomendacoesFiscaisSubModelo->setOrigemMercadoria($data['recomendacoes_fiscais']['origem_mercadoria']);
+        $recomendacoesFiscaisSubModelo->setIdPrecoTabelado($data['recomendacoes_fiscais']['id_preco_tabelado']);
+        $recomendacoesFiscaisSubModelo->setIdCest($data['recomendacoes_fiscais']['id_cest']);
+        $recomendacoesFiscaisSubModelo->setCupomFiscal($data['recomendacoes_fiscais']['cupom_fiscal']);
+        $recomendacoesFiscaisSubModelo->setMarketPlace($data['recomendacoes_fiscais']['market_place']);
+        $recomendacoesFiscaisSubModelo->setIndicadorEscala($data['recomendacoes_fiscais']['indicador_escala']);
+        $recomendacoesFiscaisSubModelo->setCnpjFabricante($data['recomendacoes_fiscais']['cnpj_fabricante']);
+        $object->setRecomendacoesFiscais($recomendacoesFiscaisSubModelo);
 
         // Dados Ibpt
+        $dadosIbptSubModelo = new DadosIbptSubModelo();
+        $dadosIbptSubModelo->setAliquotaFederal($data['dadosIbpt']['aliqFederal']);
+        $dadosIbptSubModelo->setAliquotaEstadual($data['dadosIbpt']['aliqEstadual']);
+        $dadosIbptSubModelo->setAliquotaMunicipal($data['dadosIbpt']['aliqMunicipal']);
+        $dadosIbptSubModelo->setFonte($data['dadosIbpt']['fonte']);
+        $dadosIbptSubModelo->setChave($data['dadosIbpt']['chave']);
+        $dadosIbptSubModelo->setVersao($data['dadosIbpt']['versao']);
+        $dadosIbptSubModelo->setValidoDe($data['dadosIbpt']['valido_de']);
+        $dadosIbptSubModelo->setValidoAte($data['dadosIbpt']['valido_ate']);
+        $object->setDadosIbpt($dadosIbptSubModelo);
+
+        // Imagens
+        $imagens = [];
+        if ($data['imagens']) {
+            foreach ($data['imagens'] as $imagem) {
+                $imagemSubModelo = new ImagemSubModelo();
+                $imagemSubModelo->setUrlImagem($imagem['url_imagem']);
+
+                $imagens[] = $imagemSubModelo;
+            }
+        }
+        $object->setImagens($imagens);
+
+        // Vídeos
+        $videos = [];
+        if ($data['videos']) {
+            foreach ($data['videos'] as $video) {
+                $videoSubModelo = new VideoSubModelo();
+                $videoSubModelo->setUrlVideo($video['url_video']);
+
+                $videos[] = $videoSubModelo;
+            }
+        }
+        $object->setVideos($videos);
+
+        // Características
+        $caracteristicas = [];
+        if ($data['caracteristicas']) {
+            foreach ($data['caracteristicas'] as $caracteristica) {
+                $caracteristicaSubModelo = new CaracteristicaSubModelo();
+                $caracteristicaSubModelo->setIdOmie($caracteristica['nCodCaract']);
+                $caracteristicaSubModelo->setIdIntegracao($caracteristica['cCodIntCaract']);
+                $caracteristicaSubModelo->setNome($caracteristica['cNomeCaract']);
+                $caracteristicaSubModelo->setConteudo($caracteristica['cConteudo']);
+                $caracteristicaSubModelo->setExibeItemNF($caracteristica['cExibirItemNF']);
+                $caracteristicaSubModelo->setExibeItemPedido($caracteristica['cExibirItemPedido']);
+
+                $caracteristicas[] = $caracteristicaSubModelo;
+            }
+        }
+        $object->setCaracteristicas($caracteristicas);
 
         return $object;
     }
@@ -249,18 +318,121 @@ class ProdutosHandler extends OmieApiHandler
             $entityArrayData['inativo'] = $entity->getInativo();
         }
 
-        // Imagens
-
-        // Vídeos
-
-        // Características
-
         // Info
+        if ($entity->getInfo()) {
+            $entityArrayData['info'] = [];
+
+            if ($entity->getInfo()->getDataInclusao()) {
+                $entityArrayData['info']['dInc'] = $entity->getInfo()->getDataInclusao();
+            }
+            if ($entity->getInfo()->getHoraInclusao()) {
+                $entityArrayData['info']['hInc'] = $entity->getInfo()->getHoraInclusao();
+            }
+            if ($entity->getInfo()->getUsuarioInclusao()) {
+                $entityArrayData['info']['uInc'] = $entity->getInfo()->getUsuarioInclusao();
+            }
+            if ($entity->getInfo()->getDataAlteracao()) {
+                $entityArrayData['info']['dAlt'] = $entity->getInfo()->getDataAlteracao();
+            }
+            if ($entity->getInfo()->getHoraAlteracao()) {
+                $entityArrayData['info']['hAlt'] = $entity->getInfo()->getHoraAlteracao();
+            }
+            if ($entity->getInfo()->getUsuarioAlteracao()) {
+                $entityArrayData['info']['uAlt'] = $entity->getInfo()->getUsuarioAlteracao();
+            }
+            if ($entity->getInfo()->getImportadoPelaApi()) {
+                $entityArrayData['info']['cImpAPI'] = $entity->getInfo()->getImportadoPelaApi();
+            }
+        }
 
         // Recomendações Fiscais
+        if ($entity->getRecomendacoesFiscais()) {
+            $entityArrayData['recomendacoes_fiscais'] = [];
+
+            if ($entity->getRecomendacoesFiscais()->getOrigemMercadoria()) {
+                $entityArrayData['recomendacoes_fiscais']['origem_mercadoria'] = $entity->getRecomendacoesFiscais()->getOrigemMercadoria();
+            }
+            if ($entity->getRecomendacoesFiscais()->getIdPrecoTabelado()) {
+                $entityArrayData['recomendacoes_fiscais']['id_preco_tabelado'] = $entity->getRecomendacoesFiscais()->getIdPrecoTabelado();
+            }
+            if ($entity->getRecomendacoesFiscais()->getIdCest()) {
+                $entityArrayData['recomendacoes_fiscais']['id_cest'] = $entity->getRecomendacoesFiscais()->getIdCest();
+            }
+            if ($entity->getRecomendacoesFiscais()->getCupomFiscal()) {
+                $entityArrayData['recomendacoes_fiscais']['cupom_fiscal'] = $entity->getRecomendacoesFiscais()->getCupomFiscal();
+            }
+            if ($entity->getRecomendacoesFiscais()->getMarketPlace()) {
+                $entityArrayData['recomendacoes_fiscais']['market_place'] = $entity->getRecomendacoesFiscais()->getMarketPlace();
+            }
+            if ($entity->getRecomendacoesFiscais()->getIndicadorEscala()) {
+                $entityArrayData['recomendacoes_fiscais']['indicador_escala'] = $entity->getRecomendacoesFiscais()->getIndicadorEscala();
+            }
+            if ($entity->getRecomendacoesFiscais()->getCnpjFabricante()) {
+                $entityArrayData['recomendacoes_fiscais']['cnpj_fabricante'] = $entity->getRecomendacoesFiscais()->getCnpjFabricante();
+            }
+        }
 
         // Dados Ibpt
+        if ($entity->getDadosIbpt()) {
+            $entityArrayData['dadosIbpt'] = [];
 
+            if ($entity->getDadosIbpt()->getAliquotaFederal()) {
+                $entityArrayData['dadosIbpt']['aliqFederal'] = $entity->getDadosIbpt()->getAliquotaFederal();
+            }
+            if ($entity->getDadosIbpt()->getAliquotaEstadual()) {
+                $entityArrayData['dadosIbpt']['aliqEstadual'] = $entity->getDadosIbpt()->getAliquotaEstadual();
+            }
+            if ($entity->getDadosIbpt()->getAliquotaMunicipal()) {
+                $entityArrayData['dadosIbpt']['aliqMunicipal'] = $entity->getDadosIbpt()->getAliquotaMunicipal();
+            }
+            if ($entity->getDadosIbpt()->getFonte()) {
+                $entityArrayData['dadosIbpt']['fonte'] = $entity->getDadosIbpt()->getFonte();
+            }
+            if ($entity->getDadosIbpt()->getChave()) {
+                $entityArrayData['dadosIbpt']['chave'] = $entity->getDadosIbpt()->getChave();
+            }
+            if ($entity->getDadosIbpt()->getVersao()) {
+                $entityArrayData['dadosIbpt']['versao'] = $entity->getDadosIbpt()->getVersao();
+            }
+            if ($entity->getDadosIbpt()->getValidoDe()) {
+                $entityArrayData['dadosIbpt']['valido_de'] = $entity->getDadosIbpt()->getValidoDe();
+            }
+            if ($entity->getDadosIbpt()->getValidoAte()) {
+                $entityArrayData['dadosIbpt']['valido_ate'] = $entity->getDadosIbpt()->getValidoAte();
+            }
+        }
+
+        // Imagens
+        if ($entity->getImagens()) {
+            $entityArrayData['imagens'] = [];
+
+            foreach ($entity->getImagens() as $imagem) {
+                $entityArrayData['imagens'][] = ['url_imagem' => $imagem->getUrlImagem()];
+            }
+        }
+
+        // Vídeos
+        if ($entity->getVideos()) {
+            $entityArrayData['videos'] = [];
+
+            foreach ($entity->getVideos() as $video) {
+                $entityArrayData['videos'][] = ['url_video' => $video->getUrlVideo()];
+            }
+        }
+
+        // Características
+        if ($entity->getCaracteristicas()) {
+            $entityArrayData['caracteristicas'] = [];
+
+            foreach ($entity->getCaracteristicas() as $caracteristica) {
+                $entityArrayData['caracteristicas'][] = ['nCodCaract' => $caracteristica->getIdOmie()];
+                $entityArrayData['caracteristicas'][] = ['cCodIntCaract' => $caracteristica->getIdIntegracao()];
+                $entityArrayData['caracteristicas'][] = ['cNomeCaract' => $caracteristica->getNome()];
+                $entityArrayData['caracteristicas'][] = ['cConteudo' => $caracteristica->getConteudo()];
+                $entityArrayData['caracteristicas'][] = ['cExibirItemNF' => $caracteristica->getExibeItemNF()];
+                $entityArrayData['caracteristicas'][] = ['cExibirItemPedido' => $caracteristica->getExibeItemPedido()];
+            }
+        }
 
         return $entityArrayData;
     }

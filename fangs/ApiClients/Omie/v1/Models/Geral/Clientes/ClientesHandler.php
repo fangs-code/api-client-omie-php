@@ -104,11 +104,13 @@ class ClientesHandler extends OmieApiHandler
 
         // Tags
         $tags = [];
-        foreach ($data['tags'] as $tag) {
-            $tagSubModelo = new TagSubModelo();
-            $tagSubModelo->setTag($tag['tag']);
+        if($data['tags']){
+            foreach ($data['tags'] as $tag) {
+                $tagSubModelo = new TagSubModelo();
+                $tagSubModelo->setTag($tag['tag']);
 
-            $tags[] = $tagSubModelo;
+                $tags[] = $tagSubModelo;
+            }
         }
         $object->setTags($tags);
 
@@ -331,7 +333,6 @@ class ClientesHandler extends OmieApiHandler
                 $entityArrayData['tags'][] = ['tag' => $tag->getTag()];
             }
         }
-
 
         // Recomendações
         if ($entity->getRecomendacoes()) {
