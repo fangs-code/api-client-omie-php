@@ -278,7 +278,7 @@ class ClienteEntityOmieModel
     protected ?InfoSubModelo $info = null;
 
     /**
-     * @var TagSubModelo[]
+     * @var TagSubModelo[]|null
      *
      * Tags do Cliente ou Fornecedor.
      */
@@ -1163,19 +1163,19 @@ class ClienteEntityOmieModel
     }
 
     /**
-     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo[]
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo[]|null
      */
-    public function getTags(): array
+    public function getTags(): ?array
     {
         return $this->tags;
     }
 
     /**
-     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo[] $tags
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo[]|null $tags
      *
      * @return ClienteEntityOmieModel
      */
-    public function setTags(array $tags): ClienteEntityOmieModel
+    public function setTags(?array $tags): ClienteEntityOmieModel
     {
         $this->tags = $tags;
 

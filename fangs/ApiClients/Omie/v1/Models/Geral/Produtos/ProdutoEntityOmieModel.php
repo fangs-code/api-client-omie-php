@@ -294,21 +294,21 @@ class ProdutoEntityOmieModel
     protected ?DadosIbptSubModelo $dadosIbpt = null;
 
     /**
-     * @var ImagemSubModelo[]
+     * @var ImagemSubModelo[]|null
      *
      * Lista de imagens do produto.
      */
     protected ?array $imagens = null;
 
     /**
-     * @var VideoSubModelo[]
+     * @var VideoSubModelo[]|null
      *
      * Lista de videos do produto.
      */
     protected ?array $videos = null;
 
     /**
-     * @var CaracteristicaSubModelo[]
+     * @var CaracteristicaSubModelo[]|null
      *
      * Filtro por caracteristicas.
      */
@@ -1198,19 +1198,19 @@ class ProdutoEntityOmieModel
     }
 
     /**
-     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo[]
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo[]|null
      */
-    public function getImagens(): array
+    public function getImagens(): ?array
     {
         return $this->imagens;
     }
 
     /**
-     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo[] $imagens
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo[]|null $imagens
      *
      * @return ProdutoEntityOmieModel
      */
-    public function setImagens(array $imagens): ProdutoEntityOmieModel
+    public function setImagens(?array $imagens): ProdutoEntityOmieModel
     {
         $this->imagens = $imagens;
 
@@ -1218,19 +1218,19 @@ class ProdutoEntityOmieModel
     }
 
     /**
-     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo[]
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo[]|null
      */
-    public function getVideos(): array
+    public function getVideos(): ?array
     {
         return $this->videos;
     }
 
     /**
-     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo[] $videos
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo[]|null $videos
      *
      * @return ProdutoEntityOmieModel
      */
-    public function setVideos(array $videos): ProdutoEntityOmieModel
+    public function setVideos(?array $videos): ProdutoEntityOmieModel
     {
         $this->videos = $videos;
 
@@ -1238,19 +1238,19 @@ class ProdutoEntityOmieModel
     }
 
     /**
-     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo[]
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo[]|null
      */
-    public function getCaracteristicas(): array
+    public function getCaracteristicas(): ?array
     {
         return $this->caracteristicas;
     }
 
     /**
-     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo[] $caracteristicas
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\CaracteristicaSubModelo[]|null $caracteristicas
      *
      * @return ProdutoEntityOmieModel
      */
-    public function setCaracteristicas(array $caracteristicas): ProdutoEntityOmieModel
+    public function setCaracteristicas(?array $caracteristicas): ProdutoEntityOmieModel
     {
         $this->caracteristicas = $caracteristicas;
 
