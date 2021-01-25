@@ -75,8 +75,18 @@ class OmieApiHandler
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
-                $errorData = json_decode((string)$response->getBody(), true);
 
+                // Get error description by Specific Header
+                $errorDescriptionHeader = $response->getHeader("OmieAPI-Error");
+                $errorDescription = '';
+                foreach ($errorDescriptionHeader as $error) {
+                    $errorDescription .= $error;
+                }
+
+                // Get error data
+                $errorData = json_decode((string)$response->getBody(), true);
+ 
+                //throw new Exception($errorDescription);
                 throw new Exception($errorData['faultstring']);
 
             } else {

@@ -1,6 +1,11 @@
 <?php
 namespace Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos;
 
+use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\CaracteristicasSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\ClientesSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\InfoSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\OutrasInfoSubModelo;
+use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\ProdutosSubModelo;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -48,16 +53,52 @@ class TabelasDePrecosHandler extends OmieApiHandler
         $object->setAtiva($data['cAtiva']);
         $object->setOrigem($data['cOrigem']);
 
+        // Info
+        $infoSubModelo = new InfoSubModelo();
+        $infoSubModelo->setDataInclusao($data['info']['dInc']);
+        $infoSubModelo->setHoraInclusao($data['info']['hInc']);
+        $infoSubModelo->setUsuarioInclusao($data['info']['uInc']);
+        $infoSubModelo->setDataAlteracao($data['info']['dAlt']);
+        $infoSubModelo->setHoraAlteracao($data['info']['hAlt']);
+        $infoSubModelo->setUsuarioAlteracao($data['info']['uAlt']);
+        $infoSubModelo->setImportadoPelaApi($data['info']['cImpAPI']);
+        $object->setInfo($infoSubModelo);
 
         // Produtos
+        $produtosSubModelo = new ProdutosSubModelo();
+        $produtosSubModelo->setTodosProdutos($data['produtos']['cTodosProdutos']);
+        $produtosSubModelo->setCodigoFamilia($data['produtos']['nCodFamilia']);
+        $produtosSubModelo->setNcm($data['produtos']['cNCM']);
+        $produtosSubModelo->setCodigoCaracteristica($data['produtos']['nCodCaract']);
+        $produtosSubModelo->setConteudoCaracteristica($data['produtos']['cConteudo']);
+        $produtosSubModelo->setCodigoFornecedor($data['produtos']['nCodFornec']);
+        $object->setProdutos($produtosSubModelo);
 
         // Clientes
+        $clientesSubModelo = new ClientesSubModelo();
+        $clientesSubModelo->setTodosClientes($data['clientes']['cTodosClientes']);
+        $clientesSubModelo->setCodigoTag($data['clientes']['nCodTag']);
+        $clientesSubModelo->setDescricaoTag($data['clientes']['cTag']);
+        $clientesSubModelo->setUf($data['clientes']['cUF']);
+        $object->setClientes($clientesSubModelo);
 
         // Outras Info
+        $outrasInfoSubModelo = new OutrasInfoSubModelo();
+        $outrasInfoSubModelo->setCodigoTabelaOriginal($data['outrasInfo']['nCodOrigTab']);
+        $outrasInfoSubModelo->setPercentualAcrescimo($data['outrasInfo']['nPercAcrescimo']);
+        $outrasInfoSubModelo->setPercentualDesconto($data['outrasInfo']['nPercDesconto']);
+        $object->setOutrasInfo($outrasInfoSubModelo);
 
         // Características
-
-        // Info
+        $caracteristicasSubModelo = new CaracteristicasSubModelo();
+        $caracteristicasSubModelo->setTemValidade($data['caracteristicas']['cTemValidade']);
+        $caracteristicasSubModelo->setDataInicialValidade($data['caracteristicas']['dDtInicial']);
+        $caracteristicasSubModelo->setDataFinalValidade($data['caracteristicas']['dDtFinal']);
+        $caracteristicasSubModelo->setTemDesconto($data['caracteristicas']['cTemDesconto']);
+        $caracteristicasSubModelo->setDescontoSugerido($data['caracteristicas']['nDescSugerido']);
+        $caracteristicasSubModelo->setPercentualDescontoMaximo($data['caracteristicas']['nPercDescMax']);
+        $caracteristicasSubModelo->setArredondaPreco($data['caracteristicas']['cArredPreco']);
+        $object->setCaracteristicas($caracteristicasSubModelo);
 
         return $object;
     }
@@ -99,18 +140,123 @@ class TabelasDePrecosHandler extends OmieApiHandler
         if ($entity->getCodigo()) {
             $entityArrayData['cCodigo'] = $entity->getCodigo();
         }
-
+        if ($entity->getAtiva()) {
+            $entityArrayData['cAtiva'] = $entity->getAtiva();
+        }
+        if ($entity->getOrigem()) {
+            $entityArrayData['cOrigem'] = $entity->getOrigem();
+        }
 
         // Produtos
+        if ($entity->getProdutos()) {
+            $entityArrayData['produtos'] = [];
+
+            if ($entity->getProdutos()->getTodosProdutos()) {
+                $entityArrayData['produtos']['cTodosProdutos'] = $entity->getProdutos()->getTodosProdutos();
+            }
+            if ($entity->getProdutos()->getCodigoFamilia()) {
+                $entityArrayData['produtos']['nCodFamilia'] = $entity->getProdutos()->getCodigoFamilia();
+            }
+            if ($entity->getProdutos()->getNcm()) {
+                $entityArrayData['produtos']['cNCM'] = $entity->getProdutos()->getNcm();
+            }
+            if ($entity->getProdutos()->getCodigoCaracteristica()) {
+                $entityArrayData['produtos']['nCodCaract'] = $entity->getProdutos()->getCodigoCaracteristica();
+            }
+            if ($entity->getProdutos()->getConteudoCaracteristica()) {
+                $entityArrayData['produtos']['cConteudo'] = $entity->getProdutos()->getConteudoCaracteristica();
+            }
+            if ($entity->getProdutos()->getCodigoFornecedor()) {
+                $entityArrayData['produtos']['nCodFornec'] = $entity->getProdutos()->getCodigoFornecedor();
+            }
+        }
 
         // Clientes
+        if ($entity->getClientes()) {
+            $entityArrayData['clientes'] = [];
+
+            if ($entity->getClientes()->getTodosClientes()) {
+                $entityArrayData['clientes']['cTodosClientes'] = $entity->getClientes()->getTodosClientes();
+            }
+            if ($entity->getClientes()->getCodigoTag()) {
+                $entityArrayData['clientes']['nCodTag'] = $entity->getClientes()->getCodigoTag();
+            }
+            if ($entity->getClientes()->getDescricaoTag()) {
+                $entityArrayData['clientes']['cTag'] = $entity->getClientes()->getDescricaoTag();
+            }
+            if ($entity->getClientes()->getUf()) {
+                $entityArrayData['clientes']['cUF'] = $entity->getClientes()->getUf();
+            }
+        }
 
         // Outras Info
+        if ($entity->getOutrasInfo()) {
+            $entityArrayData['outrasInfo'] = [];
+
+            if ($entity->getOutrasInfo()->getCodigoTabelaOriginal()) {
+                $entityArrayData['outrasInfo']['nCodOrigTab'] = $entity->getOutrasInfo()->getCodigoTabelaOriginal();
+            }
+            if ($entity->getOutrasInfo()->getPercentualAcrescimo()) {
+                $entityArrayData['outrasInfo']['nPercAcrescimo'] = $entity->getOutrasInfo()->getPercentualAcrescimo();
+            }
+            if ($entity->getOutrasInfo()->getPercentualDesconto()) {
+                $entityArrayData['outrasInfo']['nPercDesconto'] = $entity->getOutrasInfo()->getPercentualDesconto();
+            }
+        }
 
         // Características
+        if ($entity->getCaracteristicas()) {
+            $entityArrayData['caracteristicas'] = [];
+
+            if ($entity->getCaracteristicas()->getTemValidade()) {
+                $entityArrayData['caracteristicas']['cTemValidade'] = $entity->getCaracteristicas()->getTemValidade();
+            }
+            if ($entity->getCaracteristicas()->getDataInicialValidade()) {
+                $entityArrayData['caracteristicas']['dDtInicial'] = $entity->getCaracteristicas()->getDataInicialValidade();
+            }
+            if ($entity->getCaracteristicas()->getDataFinalValidade()) {
+                $entityArrayData['caracteristicas']['dDtFinal'] = $entity->getCaracteristicas()->getDataFinalValidade();
+            }
+            if ($entity->getCaracteristicas()->getTemDesconto()) {
+                $entityArrayData['caracteristicas']['cTemDesconto'] = $entity->getCaracteristicas()->getTemDesconto();
+            }
+            if ($entity->getCaracteristicas()->getDescontoSugerido()) {
+                $entityArrayData['caracteristicas']['nDescSugerido'] = $entity->getCaracteristicas()->getDescontoSugerido();
+            }
+            if ($entity->getCaracteristicas()->getPercentualDescontoMaximo()) {
+                $entityArrayData['caracteristicas']['nPercDescMax'] = $entity->getCaracteristicas()->getPercentualDescontoMaximo();
+            }
+            if ($entity->getCaracteristicas()->getArredondaPreco()) {
+                $entityArrayData['caracteristicas']['cArredPreco'] = $entity->getCaracteristicas()->getArredondaPreco();
+            }
+        }
 
         // Info
+        if ($entity->getInfo()) {
+            $entityArrayData['info'] = [];
 
+            if ($entity->getInfo()->getDataInclusao()) {
+                $entityArrayData['info']['dInc'] = $entity->getInfo()->getDataInclusao();
+            }
+            if ($entity->getInfo()->getHoraInclusao()) {
+                $entityArrayData['info']['hInc'] = $entity->getInfo()->getHoraInclusao();
+            }
+            if ($entity->getInfo()->getUsuarioInclusao()) {
+                $entityArrayData['info']['uInc'] = $entity->getInfo()->getUsuarioInclusao();
+            }
+            if ($entity->getInfo()->getDataAlteracao()) {
+                $entityArrayData['info']['dAlt'] = $entity->getInfo()->getDataAlteracao();
+            }
+            if ($entity->getInfo()->getHoraAlteracao()) {
+                $entityArrayData['info']['hAlt'] = $entity->getInfo()->getHoraAlteracao();
+            }
+            if ($entity->getInfo()->getUsuarioAlteracao()) {
+                $entityArrayData['info']['uAlt'] = $entity->getInfo()->getUsuarioAlteracao();
+            }
+            if ($entity->getInfo()->getImportadoPelaApi()) {
+                $entityArrayData['info']['cImpAPI'] = $entity->getInfo()->getImportadoPelaApi();
+            }
+        }
 
         return $entityArrayData;
     }
@@ -191,7 +337,19 @@ class TabelasDePrecosHandler extends OmieApiHandler
      */
     public function alterar(TabelaDePrecoEntityOmieModel $requestModel)
     {
-        $result = $this->request(self::ACTION_ALTERAR, $this->mountArrayFromEntity($requestModel));
+        $array = $this->mountArrayFromEntity($requestModel);
+
+        // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprAlterarRequest]!
+        if ($array['cAtiva']) {
+            unset($array['cAtiva']);
+        }
+
+        // Tag [INFO] não faz parte da estrutura do tipo complexo [tprAlterarRequest]!
+        if ($array['info']) {
+            unset($array['info']);
+        }
+
+        $result = $this->request(self::ACTION_ALTERAR, $array);
 
         return $this->hidrateStatus($result);
     }
