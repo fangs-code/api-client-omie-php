@@ -439,7 +439,7 @@ class ProdutosHandler extends OmieApiHandler
 
 
     /**
-     * @return array
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoEntityOmieModel[]
      * @throws \Exception
      */
     public function listar()

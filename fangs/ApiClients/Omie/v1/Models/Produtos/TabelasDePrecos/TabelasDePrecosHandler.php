@@ -263,7 +263,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
 
 
     /**
-     * @return array
+     * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel[]
      * @throws \Exception
      */
     public function listar()
@@ -375,6 +375,101 @@ class TabelasDePrecosHandler extends OmieApiHandler
         $result = $this->request(self::ACTION_EXCLUIR, $param);
 
         return $this->hidrateStatus($result);
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel $sourceModel
+     * @param \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel $targetModel
+     *
+     * @return array
+     */
+    public function comparar(TabelaDePrecoEntityOmieModel $sourceModel, TabelaDePrecoEntityOmieModel $targetModel)
+    {
+        $sourceModelArray = $this->mountArrayFromEntity($sourceModel);
+        $targetModelArray = $this->mountArrayFromEntity($targetModel);
+
+
+        $tabelaDePrecosStructure = [
+            //'nCodTabPreco'    => 'nCodTabPreco',
+            //'cCodIntTabPreco' => 'cCodIntTabPreco',
+            'cNome'           => 'cNome',
+            'cCodigo'         => 'cCodigo',
+            'cAtiva'          => 'cAtiva',
+            'cOrigem'         => 'cOrigem',
+            'produtos'        => [
+                'cTodosProdutos' => 'cTodosProdutos',
+                'nCodFamilia'    => 'nCodFamilia',
+                'cNCM'           => 'cNCM',
+                'nCodCaract'     => 'nCodCaract',
+                'cConteudo'      => 'cConteudo',
+                'nCodFornec'     => 'nCodFornec',
+            ],
+            'clientes'        => [
+                'cTodosClientes' => 'cTodosClientes',
+                'nCodTag'        => 'nCodTag',
+                'cTag'           => 'cTag',
+                'cUF'            => 'cUF',
+            ],
+            'outrasInfo'      => [
+                'nCodOrigTab'    => 'nCodOrigTab',
+                'nPercAcrescimo' => 'nPercAcrescimo',
+                'nPercDesconto'  => 'nPercDesconto',
+            ],
+            'caracteristicas' => [
+                'cTemValidade'  => 'cTemValidade',
+                'dDtInicial'    => 'dDtInicial',
+                'dDtFinal'      => 'dDtFinal',
+                'cTemDesconto'  => 'cTemDesconto',
+                'nDescSugerido' => 'nDescSugerido',
+                'nPercDescMax'  => 'nPercDescMax',
+                'cArredPreco'   => 'cArredPreco',
+            ],
+        ];
+
+        $comparisonData = [];
+        foreach ($tabelaDePrecosStructure as $key => $value) {
+            if (in_array($key, ['produtos', 'clientes', 'outrasInfo', 'caracteristicas'])) {
+                foreach ($tabelaDePrecosStructure[$key] as $keyArray => $valueArray) {
+                    $compareResult = $this->indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    if ($compareResult) {
+                        $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
+                    }
+                }
+
+            } else {
+                $compareResult = $this->indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
+                if ($compareResult) {
+                    $comparisonData[] = $compareResult . " para o índice [$key]";
+                }
+            }
+        }
+
+        return $comparisonData;
+    }
+
+    /**
+     * @param $sourceIndex
+     * @param $targetIndex
+     *
+     * @return string|null
+     */
+    private function indexComparison($sourceIndex, $targetIndex)
+    {
+        if ($sourceIndex) {
+            if ($targetIndex) {
+                if ($sourceIndex != $targetIndex) {
+                    return 'Valor diferente';
+                }
+            } else {
+                return 'Valor ausente no alvo';
+            }
+        } else {
+            if (isset($targetIndex)) {
+                return 'Valor ausente na origem';
+            }
+        }
+
+        return null;
     }
 }
 
