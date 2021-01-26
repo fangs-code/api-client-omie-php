@@ -326,6 +326,11 @@ class TabelasDePrecosHandler extends OmieApiHandler
     {
         $array = $this->mountArrayFromEntity($requestModel);
 
+        // Tag [nCodTabPreco] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        if ($array['nCodTabPreco']) {
+            unset($array['nCodTabPreco']);
+        }
+
         // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
         if ($array['cAtiva']) {
             unset($array['cAtiva']);
