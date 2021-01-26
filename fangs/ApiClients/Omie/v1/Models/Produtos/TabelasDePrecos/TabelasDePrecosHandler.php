@@ -324,7 +324,19 @@ class TabelasDePrecosHandler extends OmieApiHandler
      */
     public function incluir(TabelaDePrecoEntityOmieModel $requestModel)
     {
-        $result = $this->request(self::ACTION_INCLUIR, $this->mountArrayFromEntity($requestModel));
+        $array = $this->mountArrayFromEntity($requestModel);
+
+        // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        if ($array['cAtiva']) {
+            unset($array['cAtiva']);
+        }
+
+        // Tag [INFO] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        if ($array['info']) {
+            unset($array['info']);
+        }
+
+        $result = $this->request(self::ACTION_INCLUIR, $array);
 
         return $this->hidrateStatus($result);
     }
