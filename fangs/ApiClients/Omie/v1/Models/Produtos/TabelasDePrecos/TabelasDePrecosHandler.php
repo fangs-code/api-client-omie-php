@@ -6,6 +6,7 @@ use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\Clientes
 use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\InfoSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\OutrasInfoSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\SubModelos\ProdutosSubModelo;
+use Fangs\ApiClients\Omie\v1\OmieApiCommon;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -24,6 +25,8 @@ class TabelasDePrecosHandler extends OmieApiHandler
     const ACTION_INCLUIR = 'IncluirTabelaPreco';
     const ACTION_ALTERAR = 'AlterarTabelaPreco';
     const ACTION_EXCLUIR = 'ExcluirTabelaPreco';
+    const ACTION_ATIVAR = 'AtivarTabelaPreco';
+    const ACTION_SUSPENDER = 'SuspenderTabelaPreco';
 
 
     /**
@@ -341,6 +344,11 @@ class TabelasDePrecosHandler extends OmieApiHandler
             unset($array['info']);
         }
 
+        // A tag [nCodOrigTab] não deve ser preenchida quando a origem não for [TBL]!
+        if ($array['cOrigem'] != 'TBL') {
+            unset($array['outrasInfo']['nCodOrigTab']);
+        }
+
         $result = $this->request(self::ACTION_INCLUIR, $array);
 
         return $this->hidrateStatus($result);
@@ -390,6 +398,52 @@ class TabelasDePrecosHandler extends OmieApiHandler
         }
 
         $result = $this->request(self::ACTION_EXCLUIR, $param);
+
+        return $this->hidrateStatus($result);
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoAtivarRequestOmieModel $requestModel
+     *
+     * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
+     * @throws \Exception
+     */
+    public function ativar(TabelaDePrecoAtivarRequestOmieModel $requestModel)
+    {
+        $param = [];
+
+        if ($requestModel->getIdOmie()) {
+            $param['nCodTabPreco'] = $requestModel->getIdOmie();
+        }
+
+        if ($requestModel->getIdIntegracao()) {
+            $param['cCodIntTabPreco'] = $requestModel->getIdIntegracao();
+        }
+
+        $result = $this->request(self::ACTION_ATIVAR, $param);
+
+        return $this->hidrateStatus($result);
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoSuspenderRequestOmieModel $requestModel
+     *
+     * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
+     * @throws \Exception
+     */
+    public function suspender(TabelaDePrecoSuspenderRequestOmieModel $requestModel)
+    {
+        $param = [];
+
+        if ($requestModel->getIdOmie()) {
+            $param['nCodTabPreco'] = $requestModel->getIdOmie();
+        }
+
+        if ($requestModel->getIdIntegracao()) {
+            $param['cCodIntTabPreco'] = $requestModel->getIdIntegracao();
+        }
+
+        $result = $this->request(self::ACTION_SUSPENDER, $param);
 
         return $this->hidrateStatus($result);
     }
@@ -447,14 +501,14 @@ class TabelasDePrecosHandler extends OmieApiHandler
         foreach ($tabelaDePrecosStructure as $key => $value) {
             if (in_array($key, ['produtos', 'clientes', 'outrasInfo', 'caracteristicas'])) {
                 foreach ($tabelaDePrecosStructure[$key] as $keyArray => $valueArray) {
-                    $compareResult = $this->indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
                     if ($compareResult) {
                         $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
                     }
                 }
 
             } else {
-                $compareResult = $this->indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
+                $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
                 if ($compareResult) {
                     $comparisonData[] = $compareResult . " para o índice [$key]";
                 }
@@ -462,31 +516,6 @@ class TabelasDePrecosHandler extends OmieApiHandler
         }
 
         return $comparisonData;
-    }
-
-    /**
-     * @param $sourceIndex
-     * @param $targetIndex
-     *
-     * @return string|null
-     */
-    private function indexComparison($sourceIndex, $targetIndex)
-    {
-        if ($sourceIndex) {
-            if ($targetIndex) {
-                if ($sourceIndex != $targetIndex) {
-                    return 'Valor diferente';
-                }
-            } else {
-                return 'Valor ausente no alvo';
-            }
-        } else {
-            if (isset($targetIndex)) {
-                return 'Valor ausente na origem';
-            }
-        }
-
-        return null;
     }
 }
 
