@@ -265,23 +265,33 @@ class TabelasDePrecosHandler extends OmieApiHandler
     }
 
     /**
-     * @param array $entityArray
+     * @param string $action
+     * @param array  $entityArray
      *
      * @return array
      */
-    private function cleanArrayForInsertOrUpdate(array $entityArray)
+    private function cleanArray(string $action, array $entityArray)
     {
-        // Tag [nCodTabPreco] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
-        if ($entityArray['nCodTabPreco']) {
-            unset($entityArray['nCodTabPreco']);
+        switch ($action) {
+            case self::ACTION_INCLUIR:
+                // Tag [nCodTabPreco] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+                if ($entityArray['nCodTabPreco']) {
+                    unset($entityArray['nCodTabPreco']);
+                }
+
+                break;
+
+            case self::ACTION_ALTERAR:
+                break;
         }
 
-        // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+
+        // Tag [cAtiva] não faz parte da estrutura dos tipos complexos [tprIncluirRequest] e [tprAlterarRequest]!
         if ($entityArray['cAtiva']) {
             unset($entityArray['cAtiva']);
         }
 
-        // Tag [INFO] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        // Tag [INFO] não faz parte da estrutura dos tipos complexos [tprIncluirRequest] e [tprAlterarRequest]!
         if ($entityArray['info']) {
             unset($entityArray['info']);
         }
@@ -365,7 +375,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      */
     public function incluir(TabelaDePrecoEntityOmieModel $requestModel)
     {
-        $cleanedArray = $this->cleanArrayForInsertOrUpdate($this->mountArrayFromEntity($requestModel));
+        $cleanedArray = $this->cleanArray(self::ACTION_INCLUIR, $this->mountArrayFromEntity($requestModel));
 
         $result = $this->request(self::ACTION_INCLUIR, $cleanedArray);
 
@@ -380,7 +390,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      */
     public function alterar(TabelaDePrecoEntityOmieModel $requestModel)
     {
-        $cleanedArray = $this->cleanArrayForInsertOrUpdate($this->mountArrayFromEntity($requestModel));
+        $cleanedArray = $this->cleanArray(self::ACTION_ALTERAR, $this->mountArrayFromEntity($requestModel));
 
         $result = $this->request(self::ACTION_ALTERAR, $cleanedArray);
 
