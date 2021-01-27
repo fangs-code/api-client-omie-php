@@ -264,6 +264,44 @@ class TabelasDePrecosHandler extends OmieApiHandler
         return $entityArrayData;
     }
 
+    /**
+     * @param array $entityArray
+     *
+     * @return array
+     */
+    private function cleanArrayForInsertOrUpdate(array $entityArray)
+    {
+        // Tag [nCodTabPreco] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        if ($entityArray['nCodTabPreco']) {
+            unset($entityArray['nCodTabPreco']);
+        }
+
+        // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        if ($entityArray['cAtiva']) {
+            unset($entityArray['cAtiva']);
+        }
+
+        // Tag [INFO] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
+        if ($entityArray['info']) {
+            unset($entityArray['info']);
+        }
+
+        // A tag [nCodOrigTab] não deve ser preenchida quando a origem não for [TBL]!
+        if ($entityArray['cOrigem'] != 'TBL') {
+            unset($entityArray['outrasInfo']['nCodOrigTab']);
+        }
+
+        // Quando informar [S] na tag [cTodosProdutos] as tags [nCodFamilia,cNCM,nCodCaract,nCodFornec] não devem ser preenchidas!
+        if ($entityArray['produtos']['cTodosProdutos'] != 'TBL') {
+            unset($entityArray['produtos']['nCodFamilia']);
+            unset($entityArray['produtos']['cNCM']);
+            unset($entityArray['produtos']['nCodCaract']);
+            unset($entityArray['produtos']['nCodFornec']);
+        }
+
+        return $entityArray;
+    }
+
 
     /**
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel[]
@@ -327,29 +365,9 @@ class TabelasDePrecosHandler extends OmieApiHandler
      */
     public function incluir(TabelaDePrecoEntityOmieModel $requestModel)
     {
-        $array = $this->mountArrayFromEntity($requestModel);
+        $cleanedArray = $this->cleanArrayForInsertOrUpdate($this->mountArrayFromEntity($requestModel));
 
-        // Tag [nCodTabPreco] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
-        if ($array['nCodTabPreco']) {
-            unset($array['nCodTabPreco']);
-        }
-
-        // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
-        if ($array['cAtiva']) {
-            unset($array['cAtiva']);
-        }
-
-        // Tag [INFO] não faz parte da estrutura do tipo complexo [tprIncluirRequest]!
-        if ($array['info']) {
-            unset($array['info']);
-        }
-
-        // A tag [nCodOrigTab] não deve ser preenchida quando a origem não for [TBL]!
-        if ($array['cOrigem'] != 'TBL') {
-            unset($array['outrasInfo']['nCodOrigTab']);
-        }
-
-        $result = $this->request(self::ACTION_INCLUIR, $array);
+        $result = $this->request(self::ACTION_INCLUIR, $cleanedArray);
 
         return $this->hidrateStatus($result);
     }
@@ -362,19 +380,9 @@ class TabelasDePrecosHandler extends OmieApiHandler
      */
     public function alterar(TabelaDePrecoEntityOmieModel $requestModel)
     {
-        $array = $this->mountArrayFromEntity($requestModel);
+        $cleanedArray = $this->cleanArrayForInsertOrUpdate($this->mountArrayFromEntity($requestModel));
 
-        // Tag [cAtiva] não faz parte da estrutura do tipo complexo [tprAlterarRequest]!
-        if ($array['cAtiva']) {
-            unset($array['cAtiva']);
-        }
-
-        // Tag [INFO] não faz parte da estrutura do tipo complexo [tprAlterarRequest]!
-        if ($array['info']) {
-            unset($array['info']);
-        }
-
-        $result = $this->request(self::ACTION_ALTERAR, $array);
+        $result = $this->request(self::ACTION_ALTERAR, $cleanedArray);
 
         return $this->hidrateStatus($result);
     }
