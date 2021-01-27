@@ -7,6 +7,7 @@ use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\EnderecoEntregaSub
 use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\InfoSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\RecomendacoesSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo;
+use Fangs\ApiClients\Omie\v1\OmieApiCommon;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -104,7 +105,7 @@ class ClientesHandler extends OmieApiHandler
 
         // Tags
         $tags = [];
-        if($data['tags']){
+        if ($data['tags']) {
             foreach ($data['tags'] as $tag) {
                 $tagSubModelo = new TagSubModelo();
                 $tagSubModelo->setTag($tag['tag']);
@@ -550,5 +551,110 @@ class ClientesHandler extends OmieApiHandler
         }
 
         return $chunksResults;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel $sourceModel
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel $targetModel
+     *
+     * @return array
+     */
+    public function comparar(ClienteEntityOmieModel $sourceModel, ClienteEntityOmieModel $targetModel)
+    {
+        $sourceModelArray = $this->mountArrayFromEntity($sourceModel);
+        $targetModelArray = $this->mountArrayFromEntity($targetModel);
+
+        $clientesStructure = [
+            //'codigo_cliente_omie'       => 'codigo_cliente_omie',
+            //'codigo_cliente_integracao' => 'codigo_cliente_integracao',
+            'razao_social'             => 'razao_social',
+            'cnpj_cpf'                 => 'cnpj_cpf',
+            'nome_fantasia'            => 'nome_fantasia',
+            'telefone1_ddd'            => 'telefone1_ddd',
+            'telefone1_numero'         => 'telefone1_numero',
+            'contato'                  => 'contato',
+            'endereco'                 => 'endereco',
+            'endereco_numero'          => 'endereco_numero',
+            'bairro'                   => 'bairro',
+            'complemento'              => 'complemento',
+            'estado'                   => 'estado',
+            'cidade'                   => 'cidade',
+            'cep'                      => 'cep',
+            'codigo_pais'              => 'codigo_pais',
+            'telefone2_ddd'            => 'telefone2_ddd',
+            'telefone2_numero'         => 'telefone2_numero',
+            'fax_ddd'                  => 'fax_ddd',
+            'fax_numero'               => 'fax_numero',
+            'email'                    => 'email',
+            'homepage'                 => 'homepage',
+            'inscricao_estadual'       => 'inscricao_estadual',
+            'inscricao_municipal'      => 'inscricao_municipal',
+            'inscricao_suframa'        => 'inscricao_suframa',
+            'optante_simples_nacional' => 'optante_simples_nacional',
+            'tipo_atividade'           => 'tipo_atividade',
+            'cnae'                     => 'cnae',
+            'produtor_rural'           => 'produtor_rural',
+            'contribuinte'             => 'contribuinte',
+            'observacao'               => 'observacao',
+            'obs_detalhadas'           => 'obs_detalhadas',
+            'recomendacao_atraso'      => 'recomendacao_atraso',
+            'pessoa_fisica'            => 'pessoa_fisica',
+            'exterior'                 => 'exterior',
+            'importado_api'            => 'importado_api',
+            'cidade_ibge'              => 'cidade_ibge',
+            'valor_limite_credito'     => 'valor_limite_credito',
+            'bloquear_faturamento'     => 'bloquear_faturamento',
+            'nif'                      => 'nif',
+            'inativo'                  => 'inativo',
+            'bloquear_exclusao'        => 'bloquear_exclusao',
+
+            'tags' => [],
+
+            'recomendacoes' => [
+                'numero_parcelas' => 'numero_parcelas',
+                'codigo_vendedor' => 'codigo_vendedor',
+                'email_fatura'    => 'email_fatura',
+                'gerar_boletos'   => 'gerar_boletos',
+            ],
+
+            'enderecoEntrega' => [
+                'entCnpjCpf'     => 'entCnpjCpf',
+                'entEndereco'    => 'entEndereco',
+                'entNumero'      => 'entNumero',
+                'entComplemento' => 'entComplemento',
+                'entBairro'      => 'entBairro',
+                'entCEP'         => 'entCEP',
+                'entEstado'      => 'entEstado',
+                'entCidade'      => 'entCidade',
+            ],
+
+            'dadosBancarios' => [
+                'codigo_banco'   => 'codigo_banco',
+                'agencia'        => 'agencia',
+                'conta_corrente' => 'conta_corrente',
+                'doc_titular'    => 'doc_titular',
+                'nome_titular'   => 'nome_titular',
+            ],
+        ];
+
+        $comparisonData = [];
+        foreach ($clientesStructure as $key => $value) {
+            if (in_array($key, ['recomendacoes', 'enderecoEntrega', 'dadosBancarios'])) {
+                foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
+                    $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    if ($compareResult) {
+                        $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
+                    }
+                }
+
+            } else {
+                $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
+                if ($compareResult) {
+                    $comparisonData[] = $compareResult . " para o índice [$key]";
+                }
+            }
+        }
+
+        return $comparisonData;
     }
 }
