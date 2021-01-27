@@ -483,7 +483,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
             //'cCodIntTabPreco' => 'cCodIntTabPreco',
             'cNome'           => 'cNome',
             'cCodigo'         => 'cCodigo',
-            'cAtiva'          => 'cAtiva',
+            //'cAtiva'          => 'cAtiva',
             'cOrigem'         => 'cOrigem',
             'produtos'        => [
                 'cTodosProdutos' => 'cTodosProdutos',
