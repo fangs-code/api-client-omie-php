@@ -297,7 +297,7 @@ class ClientesHandler extends OmieApiHandler
         }
         if ($entity->getBloquearExclusao()) {
             $entityArrayData['bloquear_exclusao'] = $entity->getBloquearExclusao();
-        }else{
+        } else {
             $entityArrayData['bloquear_exclusao'] = 'N';
         }
 
@@ -610,7 +610,7 @@ class ClientesHandler extends OmieApiHandler
             'inativo'                  => 'inativo',
             'bloquear_exclusao'        => 'bloquear_exclusao',
 
-            'tags' => [],
+            //'tags' => [],
 
             'recomendacoes' => [
                 'numero_parcelas' => 'numero_parcelas',
