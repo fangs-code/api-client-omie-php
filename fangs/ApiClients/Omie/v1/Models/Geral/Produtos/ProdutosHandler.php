@@ -8,6 +8,7 @@ use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\ImagemSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\InfoSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\RecomendacoesFiscaisSubModelo;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\SubModelos\VideoSubModelo;
+use Fangs\ApiClients\Omie\v1\OmieApiCommon;
 use Fangs\ApiClients\Omie\v1\OmieApiHandler;
 
 /**
@@ -594,6 +595,110 @@ class ProdutosHandler extends OmieApiHandler
         }
 
         return $chunksResults;
+    }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoEntityOmieModel $sourceModel
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoEntityOmieModel $targetModel
+     *
+     * @return array
+     */
+    public function comparar(ProdutoEntityOmieModel $sourceModel, ProdutoEntityOmieModel $targetModel)
+    {
+        $sourceModelArray = $this->mountArrayFromEntity($sourceModel);
+        $targetModelArray = $this->mountArrayFromEntity($targetModel);
+
+        $clientesStructure = [
+            //'codigo_produto'            => 'codigo_produto',
+            //'codigo_produto_integracao' => 'codigo_produto_integracao',
+            'descricao'               => 'descricao',
+            'codigo'                  => 'codigo',
+            'unidade'                 => 'unidade',
+            'ncm'                     => 'ncm',
+            'ean'                     => 'ean',
+            'valor_unitario'          => 'valor_unitario',
+            'codigo_familia'          => 'codigo_familia',
+            'tipoItem'                => 'tipoItem',
+            'peso_liq'                => 'peso_liq',
+            'peso_bruto'              => 'peso_bruto',
+            'altura'                  => 'altura',
+            'largura'                 => 'largura',
+            'profundidade'            => 'profundidade',
+            'marca'                   => 'marca',
+            'dias_garantia'           => 'dias_garantia',
+            'dias_crossdocking'       => 'dias_crossdocking',
+            'descr_detalhada'         => 'descr_detalhada',
+            'obs_internas'            => 'obs_internas',
+            'exibir_descricao_nfe'    => 'exibir_descricao_nfe',
+            'exibir_descricao_pedido' => 'exibir_descricao_pedido',
+            //'cst_icms'                => 'cst_icms',
+            //'modalidade_icms'         => 'modalidade_icms',
+            //'csosn_icms'              => 'csosn_icms',
+            //'aliquota_icms'           => 'aliquota_icms',
+            //'red_base_icms'           => 'red_base_icms',
+            //'motivo_deson_icms'       => 'motivo_deson_icms',
+            //'per_icms_fcp'            => 'per_icms_fcp',
+            //'codigo_beneficio'        => 'codigo_beneficio',
+            //'cst_pis'                 => 'cst_pis',
+            //'aliquota_pis'            => 'aliquota_pis',
+            //'cst_cofins'              => 'cst_cofins',
+            //'aliquota_cofins'         => 'aliquota_cofins',
+            //'cfop'                    => 'cfop',
+            //'codInt_familia'          => 'codInt_familia',
+            //'descricao_familia'       => 'descricao_familia',
+            'bloqueado'               => 'bloqueado',
+            'bloquear_exclusao'       => 'bloquear_exclusao',
+            //'importado_api'           => 'importado_api',
+            //'inativo'                 => 'inativo',
+
+            'recomendacoes_fiscais' => [
+                'origem_mercadoria' => 'origem_mercadoria',
+                'id_preco_tabelado' => 'id_preco_tabelado',
+                'id_cest'           => 'id_cest',
+                'cupom_fiscal'      => 'cupom_fiscal',
+                'market_place'      => 'market_place',
+                'indicador_escala'  => 'indicador_escala',
+                'cnpj_fabricante'   => 'cnpj_fabricante',
+            ],
+
+            /*
+            'dadosIbpt' => [
+                'aliqFederal'   => 'aliqFederal',
+                'aliqEstadual'  => 'aliqEstadual',
+                'aliqMunicipal' => 'aliqMunicipal',
+                'fonte'         => 'fonte',
+                'chave'         => 'chave',
+                'versao'        => 'versao',
+                'valido_de'     => 'valido_de',
+                'valido_ate'    => 'valido_ate',
+            ],
+            */
+
+            'imagens'         => [],
+            'videos'          => [],
+            'caracteristicas' => [],
+        ];
+
+
+        $comparisonData = [];
+        foreach ($clientesStructure as $key => $value) {
+            if (in_array($key, ['recomendacoes_fiscais', 'dadosIbpt'])) {
+                foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
+                    $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    if ($compareResult) {
+                        $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
+                    }
+                }
+
+            } else {
+                $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
+                if ($compareResult) {
+                    $comparisonData[] = $compareResult . " para o índice [$key]";
+                }
+            }
+        }
+
+        return $comparisonData;
     }
 }
 
