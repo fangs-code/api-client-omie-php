@@ -674,11 +674,10 @@ class ProdutosHandler extends OmieApiHandler
             ],
             */
 
-            'imagens'         => [],
-            'videos'          => [],
-            'caracteristicas' => [],
+            //'imagens'         => [],
+            //'videos'          => [],
+            //'caracteristicas' => [],
         ];
-
 
         $comparisonData = [];
         foreach ($clientesStructure as $key => $value) {
