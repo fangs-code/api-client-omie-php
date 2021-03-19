@@ -2,7 +2,9 @@
 namespace Fangs\ApiClients\Omie\v1;
 
 use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClientesHandler;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Empresas\EmpresasHandler;
 use Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutosHandler;
+use Fangs\ApiClients\Omie\v1\Models\Geral\Tags\TagsHandler;
 use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelasDePrecosHandler;
 
 
@@ -16,9 +18,11 @@ use Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelasDePrecosHand
  */
 class OmieApiClient
 {
+    protected EmpresasHandler $empresas;
     protected ProdutosHandler $produtos;
     protected TabelasDePrecosHandler $tabelasDePrecos;
     protected ClientesHandler $clientes;
+    protected TagsHandler $tags;
 
 
     /**
@@ -29,23 +33,34 @@ class OmieApiClient
     public function __construct(
         OmieApiConfig $config
     ) {
+        $this->empresas = new EmpresasHandler($config);
         $this->produtos = new ProdutosHandler($config);
         $this->tabelasDePrecos = new TabelasDePrecosHandler($config);
         $this->clientes = new ClientesHandler($config);
+        $this->tags = new TagsHandler($config);
     }
+
 
     /**
      * @return bool
      */
-    public function testConfiguration()
+    public function testConfiguration(): bool
     {
         try {
-            $this->clientes->listar();
+            $this->empresas->listar();
 
             return true;
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Empresas\EmpresasHandler
+     */
+    public function empresas(): EmpresasHandler
+    {
+        return $this->empresas;
     }
 
     /**
@@ -70,5 +85,13 @@ class OmieApiClient
     public function clientes(): ClientesHandler
     {
         return $this->clientes;
+    }
+
+    /**
+     * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Tags\TagsHandler
+     */
+    public function tags(): TagsHandler
+    {
+        return $this->tags;
     }
 }

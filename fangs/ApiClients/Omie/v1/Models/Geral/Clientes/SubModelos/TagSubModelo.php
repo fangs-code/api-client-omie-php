@@ -18,6 +18,17 @@ class TagSubModelo
     protected ?string $tag = null;
 
 
+    /**
+     * TagSubModelo constructor.
+     *
+     * @param string|null $tag
+     */
+    public function __construct(?string $tag = null)
+    {
+        $this->tag = $tag;
+    }
+
+
     /* GETTERS/SETTERS */
 
     /**

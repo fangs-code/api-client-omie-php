@@ -18,13 +18,13 @@ use Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo;
 class ClienteEntityOmieModel
 {
     /**
-     * Código interno do omie, mapeado através do campo [codigo_produto].
+     * Código interno do omie, mapeado através do campo [codigo_cliente_omie].
      * Recomenda-se armazenar como BIGINT.
      */
     protected ?int $idOmie = null;
 
     /**
-     * Código interno de integração do omie, mapeado através do campo [codigo_produto_integracao].
+     * Código interno de integração do omie, mapeado através do campo [codigo_cliente_integracao].
      * Recomenda-se armazenar como VARCHAR(20).
      */
     protected ?string $idIntegracao = null;

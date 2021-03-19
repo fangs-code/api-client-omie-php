@@ -38,7 +38,7 @@ class OmieApiHandler
      *
      * @return array
      */
-    private function preparePayload(string $action, array $param = null)
+    private function preparePayload(string $action, array $param = null): array
     {
         $payload = [
             'app_key'    => $this->config->getAppKey(),
@@ -61,7 +61,7 @@ class OmieApiHandler
      * @return array
      * @throws \Exception
      */
-    protected function call(string $endpoint, string $action, array $param = null)
+    protected function call(string $endpoint, string $action, array $param = null): array
     {
         $guzzleClient = new Client();
 
@@ -85,7 +85,7 @@ class OmieApiHandler
 
                 // Get error data
                 $errorData = json_decode((string)$response->getBody(), true);
- 
+
                 //throw new Exception($errorDescription);
                 throw new Exception($errorData['faultstring']);
 
