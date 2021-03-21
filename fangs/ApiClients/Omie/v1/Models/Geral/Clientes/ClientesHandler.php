@@ -173,164 +173,164 @@ class ClientesHandler extends OmieApiHandler
     {
         $entityArrayData = [];
 
-        if ($entity->getIdOmie()) {
+        if ($entity->getIdOmie() !== null) {
             $entityArrayData['codigo_cliente_omie'] = $entity->getIdOmie();
         }
-        if ($entity->getIdIntegracao()) {
+        if ($entity->getIdIntegracao() !== null) {
             $entityArrayData['codigo_cliente_integracao'] = $entity->getIdIntegracao();
         }
-        if ($entity->getRazaoSocial()) {
+        if ($entity->getRazaoSocial() !== null) {
             $entityArrayData['razao_social'] = $entity->getRazaoSocial();
         }
-        if ($entity->getCnpjCpf()) {
+        if ($entity->getCnpjCpf() !== null) {
             $entityArrayData['cnpj_cpf'] = $entity->getCnpjCpf();
         }
-        if ($entity->getNomeFantasia()) {
+        if ($entity->getNomeFantasia() !== null) {
             $entityArrayData['nome_fantasia'] = $entity->getNomeFantasia();
         }
-        if ($entity->getTelefone1Ddd()) {
+        if ($entity->getTelefone1Ddd() !== null) {
             $entityArrayData['telefone1_ddd'] = $entity->getTelefone1Ddd();
         }
-        if ($entity->getTelefone1Numero()) {
+        if ($entity->getTelefone1Numero() !== null) {
             $entityArrayData['telefone1_numero'] = $entity->getTelefone1Numero();
         }
-        if ($entity->getContato()) {
+        if ($entity->getContato() !== null) {
             $entityArrayData['contato'] = $entity->getContato();
         }
-        if ($entity->getEndereco()) {
+        if ($entity->getEndereco() !== null) {
             $entityArrayData['endereco'] = $entity->getEndereco();
         }
-        if ($entity->getEnderecoNumero()) {
+        if ($entity->getEnderecoNumero() !== null) {
             $entityArrayData['endereco_numero'] = $entity->getEnderecoNumero();
         }
-        if ($entity->getBairro()) {
+        if ($entity->getBairro() !== null) {
             $entityArrayData['bairro'] = $entity->getBairro();
         }
-        if ($entity->getComplemento()) {
+        if ($entity->getComplemento() !== null) {
             $entityArrayData['complemento'] = $entity->getComplemento();
         }
-        if ($entity->getEstado()) {
+        if ($entity->getEstado() !== null) {
             $entityArrayData['estado'] = $entity->getEstado();
         }
-        if ($entity->getCidade()) {
+        if ($entity->getCidade() !== null) {
             $entityArrayData['cidade'] = $entity->getCidade();
         }
-        if ($entity->getCep()) {
+        if ($entity->getCep() !== null) {
             $entityArrayData['cep'] = $entity->getCep();
         }
-        if ($entity->getPais()) {
+        if ($entity->getPais() !== null) {
             $entityArrayData['codigo_pais'] = $entity->getPais();
         }
-        if ($entity->getTelefone2Ddd()) {
+        if ($entity->getTelefone2Ddd() !== null) {
             $entityArrayData['telefone2_ddd'] = $entity->getTelefone2Ddd();
         }
-        if ($entity->getTelefone2Numero()) {
+        if ($entity->getTelefone2Numero() !== null) {
             $entityArrayData['telefone2_numero'] = $entity->getTelefone2Numero();
         }
-        if ($entity->getFaxDdd()) {
+        if ($entity->getFaxDdd() !== null) {
             $entityArrayData['fax_ddd'] = $entity->getFaxDdd();
         }
-        if ($entity->getFaxNumero()) {
+        if ($entity->getFaxNumero() !== null) {
             $entityArrayData['fax_numero'] = $entity->getFaxNumero();
         }
-        if ($entity->getEmail()) {
+        if ($entity->getEmail() !== null) {
             $entityArrayData['email'] = $entity->getEmail();
         }
-        if ($entity->getHomePage()) {
+        if ($entity->getHomePage() !== null) {
             $entityArrayData['homepage'] = $entity->getHomePage();
         }
-        if ($entity->getInscricaoEstadual()) {
+        if ($entity->getInscricaoEstadual() !== null) {
             $entityArrayData['inscricao_estadual'] = $entity->getInscricaoEstadual();
         }
-        if ($entity->getInscricaoMunicipal()) {
+        if ($entity->getInscricaoMunicipal() !== null) {
             $entityArrayData['inscricao_municipal'] = $entity->getInscricaoMunicipal();
         }
-        if ($entity->getInscricaoSuframa()) {
+        if ($entity->getInscricaoSuframa() !== null) {
             $entityArrayData['inscricao_suframa'] = $entity->getInscricaoSuframa();
         }
-        if ($entity->getOptanteSimplesNacional()) {
+        if ($entity->getOptanteSimplesNacional() !== null) {
             $entityArrayData['optante_simples_nacional'] = $entity->getOptanteSimplesNacional();
         }
-        if ($entity->getTipoAtividade()) {
+        if ($entity->getTipoAtividade() !== null) {
             $entityArrayData['tipo_atividade'] = $entity->getTipoAtividade();
         }
-        if ($entity->getCnae()) {
+        if ($entity->getCnae() !== null) {
             $entityArrayData['cnae'] = $entity->getCnae();
         }
-        if ($entity->getProdutorRural()) {
+        if ($entity->getProdutorRural() !== null) {
             $entityArrayData['produtor_rural'] = $entity->getProdutorRural();
         }
-        if ($entity->getContribuinte()) {
+        if ($entity->getContribuinte() !== null) {
             $entityArrayData['contribuinte'] = $entity->getContribuinte();
         }
-        if ($entity->getObservacao()) {
+        if ($entity->getObservacao() !== null) {
             $entityArrayData['observacao'] = $entity->getObservacao();
         }
-        if ($entity->getObservacaoDetalhada()) {
+        if ($entity->getObservacaoDetalhada() !== null) {
             $entityArrayData['obs_detalhadas'] = $entity->getObservacaoDetalhada();
         }
-        if ($entity->getRecomendacaoAtraso()) {
+        if ($entity->getRecomendacaoAtraso() !== null) {
             $entityArrayData['recomendacao_atraso'] = $entity->getRecomendacaoAtraso();
         }
-        if ($entity->getPessoaFisica()) {
+        if ($entity->getPessoaFisica() !== null) {
             $entityArrayData['pessoa_fisica'] = $entity->getPessoaFisica();
         }
-        if ($entity->getExterior()) {
+        if ($entity->getExterior() !== null) {
             $entityArrayData['exterior'] = $entity->getExterior();
         }
-        if ($entity->getImportadoApi()) {
+        if ($entity->getImportadoApi() !== null) {
             $entityArrayData['importado_api'] = $entity->getImportadoApi();
         }
-        if ($entity->getCidadeIbge()) {
+        if ($entity->getCidadeIbge() !== null) {
             $entityArrayData['cidade_ibge'] = $entity->getCidadeIbge();
         }
-        if ($entity->getValorLimiteCredito()) {
+        if ($entity->getValorLimiteCredito() !== null) {
             $entityArrayData['valor_limite_credito'] = $entity->getValorLimiteCredito();
         }
-        if ($entity->getBloquearFaturamento()) {
+        if ($entity->getBloquearFaturamento() !== null) {
             $entityArrayData['bloquear_faturamento'] = $entity->getBloquearFaturamento();
         }
-        if ($entity->getNif()) {
+        if ($entity->getNif() !== null) {
             $entityArrayData['nif'] = $entity->getNif();
         }
-        if ($entity->getInativo()) {
+        if ($entity->getInativo() !== null) {
             $entityArrayData['inativo'] = $entity->getInativo();
         }
-        if ($entity->getBloquearExclusao()) {
+        if ($entity->getBloquearExclusao() !== null) {
             $entityArrayData['bloquear_exclusao'] = $entity->getBloquearExclusao();
         } else {
             $entityArrayData['bloquear_exclusao'] = 'N';
         }
 
         // Info
-        if ($entity->getInfo()) {
+        if ($entity->getInfo() !== null) {
             $entityArrayData['info'] = [];
 
-            if ($entity->getInfo()->getDataInclusao()) {
+            if ($entity->getInfo()->getDataInclusao() !== null) {
                 $entityArrayData['info']['dInc'] = $entity->getInfo()->getDataInclusao();
             }
-            if ($entity->getInfo()->getHoraInclusao()) {
+            if ($entity->getInfo()->getHoraInclusao() !== null) {
                 $entityArrayData['info']['hInc'] = $entity->getInfo()->getHoraInclusao();
             }
-            if ($entity->getInfo()->getUsuarioInclusao()) {
+            if ($entity->getInfo()->getUsuarioInclusao() !== null) {
                 $entityArrayData['info']['uInc'] = $entity->getInfo()->getUsuarioInclusao();
             }
-            if ($entity->getInfo()->getDataAlteracao()) {
+            if ($entity->getInfo()->getDataAlteracao() !== null) {
                 $entityArrayData['info']['dAlt'] = $entity->getInfo()->getDataAlteracao();
             }
-            if ($entity->getInfo()->getHoraAlteracao()) {
+            if ($entity->getInfo()->getHoraAlteracao() !== null) {
                 $entityArrayData['info']['hAlt'] = $entity->getInfo()->getHoraAlteracao();
             }
-            if ($entity->getInfo()->getUsuarioAlteracao()) {
+            if ($entity->getInfo()->getUsuarioAlteracao() !== null) {
                 $entityArrayData['info']['uAlt'] = $entity->getInfo()->getUsuarioAlteracao();
             }
-            if ($entity->getInfo()->getImportadoPelaApi()) {
+            if ($entity->getInfo()->getImportadoPelaApi() !== null) {
                 $entityArrayData['info']['cImpAPI'] = $entity->getInfo()->getImportadoPelaApi();
             }
         }
 
         // Tags
-        if ($entity->getTags()) {
+        if ($entity->getTags() !== null) {
             $entityArrayData['tags'] = [];
 
             foreach ($entity->getTags() as $tag) {
@@ -339,70 +339,70 @@ class ClientesHandler extends OmieApiHandler
         }
 
         // Recomendações
-        if ($entity->getRecomendacoes()) {
+        if ($entity->getRecomendacoes() !== null) {
             $entityArrayData['recomendacoes'] = [];
 
-            if ($entity->getRecomendacoes()->getNumeroParcelas()) {
+            if ($entity->getRecomendacoes()->getNumeroParcelas() !== null) {
                 $entityArrayData['recomendacoes']['numero_parcelas'] = $entity->getRecomendacoes()->getNumeroParcelas();
             }
-            if ($entity->getRecomendacoes()->getCodigoVendedor()) {
+            if ($entity->getRecomendacoes()->getCodigoVendedor() !== null) {
                 $entityArrayData['recomendacoes']['codigo_vendedor'] = $entity->getRecomendacoes()->getCodigoVendedor();
             }
-            if ($entity->getRecomendacoes()->getEmailFatura()) {
+            if ($entity->getRecomendacoes()->getEmailFatura() !== null) {
                 $entityArrayData['recomendacoes']['email_fatura'] = $entity->getRecomendacoes()->getEmailFatura();
             }
-            if ($entity->getRecomendacoes()->getGerarBoletos()) {
+            if ($entity->getRecomendacoes()->getGerarBoletos() !== null) {
                 $entityArrayData['recomendacoes']['gerar_boletos'] = $entity->getRecomendacoes()->getGerarBoletos();
             }
         }
 
         // Endereço de Entrega
-        if ($entity->getEnderecoEntrega()) {
+        if ($entity->getEnderecoEntrega() !== null) {
             $entityArrayData['enderecoEntrega'] = [];
 
-            if ($entity->getEnderecoEntrega()->getCnpjCpf()) {
+            if ($entity->getEnderecoEntrega()->getCnpjCpf() !== null) {
                 $entityArrayData['enderecoEntrega']['entCnpjCpf'] = $entity->getEnderecoEntrega()->getCnpjCpf();
             }
-            if ($entity->getEnderecoEntrega()->getEndereco()) {
+            if ($entity->getEnderecoEntrega()->getEndereco() !== null) {
                 $entityArrayData['enderecoEntrega']['entEndereco'] = $entity->getEnderecoEntrega()->getEndereco();
             }
-            if ($entity->getEnderecoEntrega()->getNumero()) {
+            if ($entity->getEnderecoEntrega()->getNumero() !== null) {
                 $entityArrayData['enderecoEntrega']['entNumero'] = $entity->getEnderecoEntrega()->getNumero();
             }
-            if ($entity->getEnderecoEntrega()->getComplemento()) {
+            if ($entity->getEnderecoEntrega()->getComplemento() !== null) {
                 $entityArrayData['enderecoEntrega']['entComplemento'] = $entity->getEnderecoEntrega()->getComplemento();
             }
-            if ($entity->getEnderecoEntrega()->getBairro()) {
+            if ($entity->getEnderecoEntrega()->getBairro() !== null) {
                 $entityArrayData['enderecoEntrega']['entBairro'] = $entity->getEnderecoEntrega()->getBairro();
             }
-            if ($entity->getEnderecoEntrega()->getCep()) {
+            if ($entity->getEnderecoEntrega()->getCep() !== null) {
                 $entityArrayData['enderecoEntrega']['entCEP'] = $entity->getEnderecoEntrega()->getCep();
             }
-            if ($entity->getEnderecoEntrega()->getEstado()) {
+            if ($entity->getEnderecoEntrega()->getEstado() !== null) {
                 $entityArrayData['enderecoEntrega']['entEstado'] = $entity->getEnderecoEntrega()->getEstado();
             }
-            if ($entity->getEnderecoEntrega()->getCidade()) {
+            if ($entity->getEnderecoEntrega()->getCidade() !== null) {
                 $entityArrayData['enderecoEntrega']['entCidade'] = $entity->getEnderecoEntrega()->getCidade();
             }
         }
 
         // Dados Bancários
-        if ($entity->getDadosBancarios()) {
+        if ($entity->getDadosBancarios() !== null) {
             $entityArrayData['dadosBancarios'] = [];
 
-            if ($entity->getDadosBancarios()->getCodigoBanco()) {
+            if ($entity->getDadosBancarios()->getCodigoBanco() !== null) {
                 $entityArrayData['dadosBancarios']['codigo_banco'] = $entity->getDadosBancarios()->getCodigoBanco();
             }
-            if ($entity->getDadosBancarios()->getAgencia()) {
+            if ($entity->getDadosBancarios()->getAgencia() !== null) {
                 $entityArrayData['dadosBancarios']['agencia'] = $entity->getDadosBancarios()->getAgencia();
             }
-            if ($entity->getDadosBancarios()->getContaCorrente()) {
+            if ($entity->getDadosBancarios()->getContaCorrente() !== null) {
                 $entityArrayData['dadosBancarios']['conta_corrente'] = $entity->getDadosBancarios()->getContaCorrente();
             }
-            if ($entity->getDadosBancarios()->getDocTitular()) {
+            if ($entity->getDadosBancarios()->getDocTitular() !== null) {
                 $entityArrayData['dadosBancarios']['doc_titular'] = $entity->getDadosBancarios()->getDocTitular();
             }
-            if ($entity->getDadosBancarios()->getNomeTitular()) {
+            if ($entity->getDadosBancarios()->getNomeTitular() !== null) {
                 $entityArrayData['dadosBancarios']['nome_titular'] = $entity->getDadosBancarios()->getNomeTitular();
             }
         }
