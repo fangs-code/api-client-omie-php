@@ -77,4 +77,16 @@ class TagIncluirRequestOmieModel
 
         return $this;
     }
+
+    /**
+     * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\SubModelos\TagSubModelo $tag
+     *
+     * @return $this
+     */
+    public function addTag(TagSubModelo $tag): TagIncluirRequestOmieModel
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
 }
