@@ -36,7 +36,7 @@ class ClientesHandler extends OmieApiHandler
      * @return array
      * @throws \Exception
      */
-    private function request(string $action, array $param = null)
+    private function request(string $action, array $param = null): array
     {
         return $this->call(self::ENDPOINT, $action, $param);
     }
@@ -46,7 +46,7 @@ class ClientesHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel
      */
-    private function hidrateEntity(array $data)
+    private function hidrateEntity(array $data): ClienteEntityOmieModel
     {
         $object = new ClienteEntityOmieModel();
         $object->setIdOmie($data['codigo_cliente_omie']);
@@ -152,7 +152,7 @@ class ClientesHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteStatusOmieModel
      */
-    private function hidrateStatus(array $data)
+    private function hidrateStatus(array $data): ClienteStatusOmieModel
     {
         $object = new ClienteStatusOmieModel();
         $object->setIdOmie($data['codigo_cliente_omie']);
@@ -168,7 +168,7 @@ class ClientesHandler extends OmieApiHandler
      *
      * @return array
      */
-    private function mountArrayFromEntity(ClienteEntityOmieModel $entity)
+    private function mountArrayFromEntity(ClienteEntityOmieModel $entity): array
     {
         $entityArrayData = [];
 
@@ -414,7 +414,7 @@ class ClientesHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel[]
      * @throws \Exception
      */
-    public function listar()
+    public function listar(): array
     {
         $list = [];
 
@@ -448,7 +448,7 @@ class ClientesHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteEntityOmieModel
      * @throws \Exception
      */
-    public function consultar(ClienteConsultarRequestOmieModel $requestModel)
+    public function consultar(ClienteConsultarRequestOmieModel $requestModel): ClienteEntityOmieModel
     {
         $param = [];
 
@@ -471,7 +471,7 @@ class ClientesHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteStatusOmieModel
      * @throws \Exception
      */
-    public function incluir(ClienteEntityOmieModel $requestModel)
+    public function incluir(ClienteEntityOmieModel $requestModel): ClienteStatusOmieModel
     {
         $result = $this->request(self::ACTION_INCLUIR, $this->mountArrayFromEntity($requestModel));
 
@@ -484,7 +484,7 @@ class ClientesHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteStatusOmieModel
      * @throws \Exception
      */
-    public function alterar(ClienteEntityOmieModel $requestModel)
+    public function alterar(ClienteEntityOmieModel $requestModel): ClienteStatusOmieModel
     {
         $result = $this->request(self::ACTION_ALTERAR, $this->mountArrayFromEntity($requestModel));
 
@@ -497,7 +497,7 @@ class ClientesHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Clientes\ClienteStatusOmieModel
      * @throws \Exception
      */
-    public function excluir(ClienteExcluirRequestOmieModel $requestModel)
+    public function excluir(ClienteExcluirRequestOmieModel $requestModel): ClienteStatusOmieModel
     {
         $param = [];
 
@@ -519,7 +519,7 @@ class ClientesHandler extends OmieApiHandler
      *
      * @return array
      */
-    public function incluirOuAlterarPorLote(array $requestModels)
+    public function incluirOuAlterarPorLote(array $requestModels): array
     {
         // Separar por lotes de 50 registros
         $chunks = array_chunk($requestModels, 50);
@@ -561,7 +561,7 @@ class ClientesHandler extends OmieApiHandler
      *
      * @return array
      */
-    public function comparar(ClienteEntityOmieModel $sourceModel, ClienteEntityOmieModel $targetModel)
+    public function comparar(ClienteEntityOmieModel $sourceModel, ClienteEntityOmieModel $targetModel): array
     {
         $sourceModelArray = $this->mountArrayFromEntity($sourceModel);
         $targetModelArray = $this->mountArrayFromEntity($targetModel);
@@ -614,7 +614,7 @@ class ClientesHandler extends OmieApiHandler
 
             'recomendacoes' => [
                 'numero_parcelas' => 'numero_parcelas',
-                'codigo_vendedor' => 'codigo_vendedor',
+                //'codigo_vendedor' => 'codigo_vendedor', // Não comparar código de vendedor, uma vez que os IdOmies serão sempre inconsistentes
                 'email_fatura'    => 'email_fatura',
                 'gerar_boletos'   => 'gerar_boletos',
             ],
@@ -643,7 +643,17 @@ class ClientesHandler extends OmieApiHandler
         foreach ($clientesStructure as $key => $value) {
             if (in_array($key, ['recomendacoes', 'enderecoEntrega', 'dadosBancarios'])) {
                 foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
-                    $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    $sourceIndex = $sourceModelArray[$key][$keyArray];
+                    $targetIndex = $targetModelArray[$key][$keyArray];
+
+                    // Ignorar diferenças entre alguns índices dos quais o Omie é incapaz de lidar devido
+                    // ao fato de que ele é inconsistente para com as próprias formas de alimentar os campos.
+                    if($key == "enderecoEntrega" && $keyArray == "entCEP"){
+                        $sourceIndex = str_replace("-", "", $sourceIndex);
+                        $targetIndex = str_replace("-", "", $targetIndex);
+                    }
+
+                    $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
                     if ($compareResult) {
                         $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
                     }
