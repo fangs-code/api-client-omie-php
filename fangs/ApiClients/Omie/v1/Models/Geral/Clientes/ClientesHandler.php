@@ -648,9 +648,12 @@ class ClientesHandler extends OmieApiHandler
 
                     // Ignorar diferenças entre alguns índices dos quais o Omie é incapaz de lidar devido
                     // ao fato de que ele é inconsistente para com as próprias formas de alimentar os campos.
-                    if($key == "enderecoEntrega" && $keyArray == "entCEP"){
-                        $sourceIndex = str_replace("-", "", $sourceIndex);
-                        $targetIndex = str_replace("-", "", $targetIndex);
+                    // Fazer isso apenas caso existam índices na origem e no alvo
+                    if($sourceIndex && $targetIndex){
+                        if($key == "enderecoEntrega" && $keyArray == "entCEP"){
+                                $sourceIndex = str_replace("-", "", $sourceIndex);
+                                $targetIndex = str_replace("-", "", $targetIndex);
+                        }
                     }
 
                     $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);

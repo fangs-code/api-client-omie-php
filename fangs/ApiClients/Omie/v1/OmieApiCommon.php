@@ -17,7 +17,7 @@ class OmieApiCommon
      *
      * @return string|null
      */
-    public static function indexComparison($sourceIndex, $targetIndex)
+    public static function indexComparison($sourceIndex, $targetIndex): ?string
     {
         if ($sourceIndex) {
             if ($targetIndex) {
