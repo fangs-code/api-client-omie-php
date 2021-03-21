@@ -11,6 +11,11 @@ namespace Fangs\ApiClients\Omie\v1;
  */
 class OmieApiCommon
 {
+    const COMPARE_RESULT_VALOR_DIFERENTE = 1;
+    const COMPARE_RESULT_VALOR_AUSENTE_ALVO = 2;
+    const COMPARE_RESULT_VALOR_AUSENTE_ORIGEM = 3;
+
+
     /**
      * @param $sourceIndex
      * @param $targetIndex
@@ -22,14 +27,14 @@ class OmieApiCommon
         if ($sourceIndex) {
             if ($targetIndex) {
                 if ($sourceIndex != $targetIndex) {
-                    return 'Valor diferente';
+                    return self::COMPARE_RESULT_VALOR_DIFERENTE;
                 }
             } else {
-                return 'Valor ausente no alvo';
+                return self::COMPARE_RESULT_VALOR_AUSENTE_ALVO;
             }
         } else {
             if (isset($targetIndex)) {
-                return 'Valor ausente na origem';
+                return self::COMPARE_RESULT_VALOR_AUSENTE_ORIGEM;
             }
         }
 

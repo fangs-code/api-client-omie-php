@@ -640,33 +640,70 @@ class ClientesHandler extends OmieApiHandler
             ],
         ];
 
-        $comparisonData = [];
+        $comparisonData = [
+            'texts' => [],
+            'diff'  => [
+                'notEqual'      => [],
+                'emptyOnTarget' => [],
+                'emptyOnSource' => [],
+            ],
+        ];
         foreach ($clientesStructure as $key => $value) {
             if (in_array($key, ['recomendacoes', 'enderecoEntrega', 'dadosBancarios'])) {
                 foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
+                    $indexName = "$key|$keyArray";
                     $sourceIndex = $sourceModelArray[$key][$keyArray];
                     $targetIndex = $targetModelArray[$key][$keyArray];
 
                     // Ignorar diferenças entre alguns índices dos quais o Omie é incapaz de lidar devido
                     // ao fato de que ele é inconsistente para com as próprias formas de alimentar os campos.
                     // Fazer isso apenas caso existam índices na origem e no alvo
-                    if($sourceIndex && $targetIndex){
-                        if($key == "enderecoEntrega" && $keyArray == "entCEP"){
-                                $sourceIndex = str_replace("-", "", $sourceIndex);
-                                $targetIndex = str_replace("-", "", $targetIndex);
+                    if ($sourceIndex && $targetIndex) {
+                        if ($key == "enderecoEntrega" && $keyArray == "entCEP") {
+                            $sourceIndex = str_replace("-", "", $sourceIndex);
+                            $targetIndex = str_replace("-", "", $targetIndex);
                         }
                     }
 
                     $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
-                    if ($compareResult) {
-                        $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
+                    switch ($compareResult) {
+                        case OmieApiCommon::COMPARE_RESULT_VALOR_DIFERENTE:
+                            $comparisonData['texts'][] = "Valor diferente para o índice $indexName";
+                            $comparisonData['diff']['notEqual'][] = $indexName;
+                            break;
+
+                        case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ALVO:
+                            $comparisonData['texts'][] = "Valor ausente no alvo para o índice $indexName";
+                            $comparisonData['diff']['emptyOnTarget'][] = $indexName;
+                            break;
+
+                        case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ORIGEM:
+                            $comparisonData['texts'][] = "Valor ausente na origem para o índice $indexName";
+                            $comparisonData['diff']['emptyOnSource'][] = $indexName;
+                            break;
                     }
                 }
+            }else{
+                $indexName = $key;
+                $sourceIndex = $sourceModelArray[$key];
+                $targetIndex = $targetModelArray[$key];
 
-            } else {
-                $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
-                if ($compareResult) {
-                    $comparisonData[] = $compareResult . " para o índice [$key]";
+                $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
+                switch ($compareResult) {
+                    case OmieApiCommon::COMPARE_RESULT_VALOR_DIFERENTE:
+                        $comparisonData['texts'][] = "Valor diferente para o índice $indexName";
+                        $comparisonData['diff']['notEqual'][] = $indexName;
+                        break;
+
+                    case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ALVO:
+                        $comparisonData['texts'][] = "Valor ausente no alvo para o índice $indexName";
+                        $comparisonData['diff']['emptyOnTarget'][] = $indexName;
+                        break;
+
+                    case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ORIGEM:
+                        $comparisonData['texts'][] = "Valor ausente na origem para o índice $indexName";
+                        $comparisonData['diff']['emptyOnSource'][] = $indexName;
+                        break;
                 }
             }
         }
