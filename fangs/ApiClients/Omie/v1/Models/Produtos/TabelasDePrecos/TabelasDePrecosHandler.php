@@ -514,7 +514,14 @@ class TabelasDePrecosHandler extends OmieApiHandler
             ],
         ];
 
-        $comparisonData = [];
+        $comparisonData = [
+            'texts' => [],
+            'diff'  => [
+                'notEqual'      => [],
+                'emptyOnTarget' => [],
+                'emptyOnSource' => [],
+            ],
+        ];
         foreach ($tabelaDePrecosStructure as $key => $value) {
             if (in_array($key, ['produtos', 'clientes', 'outrasInfo', 'caracteristicas'])) {
                 foreach ($tabelaDePrecosStructure[$key] as $keyArray => $valueArray) {

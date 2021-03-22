@@ -640,7 +640,14 @@ class ClientesHandler extends OmieApiHandler
             ],
         ];
 
-        $comparisonData = [];
+        $comparisonData = [
+            'texts' => [],
+            'diff'  => [
+                'notEqual'      => [],
+                'emptyOnTarget' => [],
+                'emptyOnSource' => [],
+            ],
+        ];
         foreach ($clientesStructure as $key => $value) {
             if (in_array($key, ['recomendacoes', 'enderecoEntrega', 'dadosBancarios'])) {
                 foreach ($clientesStructure[$key] as $keyArray => $valueArray) {

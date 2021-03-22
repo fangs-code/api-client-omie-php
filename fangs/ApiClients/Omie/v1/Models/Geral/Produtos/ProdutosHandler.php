@@ -679,7 +679,14 @@ class ProdutosHandler extends OmieApiHandler
             //'caracteristicas' => [],
         ];
 
-        $comparisonData = [];
+        $comparisonData = [
+            'texts' => [],
+            'diff'  => [
+                'notEqual'      => [],
+                'emptyOnTarget' => [],
+                'emptyOnSource' => [],
+            ],
+        ];
         foreach ($clientesStructure as $key => $value) {
             if (in_array($key, ['recomendacoes_fiscais', 'dadosIbpt'])) {
                 foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
