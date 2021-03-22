@@ -514,6 +514,18 @@ class TabelasDePrecosHandler extends OmieApiHandler
             ],
         ];
 
+        // Definir exclusões
+        $ignorarProdutos = false;
+        $ignorarClientes = false;
+        if($sourceModel->getProdutos()->getTodosProdutos() == "S"
+            && $targetModel->getProdutos()->getTodosProdutos() == "S"){
+            $ignorarProdutos = true;
+        }
+        if($sourceModel->getClientes()->getTodosClientes() == "S"
+            && $targetModel->getClientes()->getTodosClientes() == "S"){
+            $ignorarClientes = true;
+        }
+
         $comparisonData = [
             'texts' => [],
             'diff'  => [
@@ -524,6 +536,9 @@ class TabelasDePrecosHandler extends OmieApiHandler
         ];
         foreach ($tabelaDePrecosStructure as $key => $value) {
             if (in_array($key, ['produtos', 'clientes', 'outrasInfo', 'caracteristicas'])) {
+                if($key == 'produtos' && $ignorarProdutos) { continue; }
+                if($key == 'clientes' && $ignorarClientes) { continue; }
+
                 foreach ($tabelaDePrecosStructure[$key] as $keyArray => $valueArray) {
                     $indexName = "$key|$keyArray";
                     $sourceIndex = $sourceModelArray[$key][$keyArray];
