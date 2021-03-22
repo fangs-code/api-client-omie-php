@@ -17,12 +17,12 @@ class OmieApiCommon
 
 
     /**
-     * @param string $sourceIndex
-     * @param string $targetIndex
+     * @param string|null $sourceIndex
+     * @param string|null $targetIndex
      *
      * @return int|null
      */
-    public static function indexComparison(string $sourceIndex, string $targetIndex): ?int
+    public static function indexComparison(?string $sourceIndex, ?string $targetIndex): ?int
     {
         if ($sourceIndex !== null) {
             if ($targetIndex !== null) {
