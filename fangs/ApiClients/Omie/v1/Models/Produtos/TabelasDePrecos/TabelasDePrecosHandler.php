@@ -36,7 +36,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return array
      * @throws \Exception
      */
-    private function request(string $action, array $param = null)
+    private function request(string $action, array $param = null): array
     {
         return $this->call(self::ENDPOINT, $action, $param);
     }
@@ -46,7 +46,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel
      */
-    private function hidrateEntity(array $data)
+    private function hidrateEntity(array $data): TabelaDePrecoEntityOmieModel
     {
         $object = new TabelaDePrecoEntityOmieModel();
         $object->setIdOmie($data['nCodTabPreco']);
@@ -111,7 +111,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
      */
-    private function hidrateStatus(array $data)
+    private function hidrateStatus(array $data): TabelaDePrecoStatusOmieModel
     {
         $object = new TabelaDePrecoStatusOmieModel();
         $object->setIdOmie($data['nCodTabPreco']);
@@ -127,136 +127,136 @@ class TabelasDePrecosHandler extends OmieApiHandler
      *
      * @return array
      */
-    private function mountArrayFromEntity(TabelaDePrecoEntityOmieModel $entity)
+    private function mountArrayFromEntity(TabelaDePrecoEntityOmieModel $entity): array
     {
         $entityArrayData = [];
 
-        if ($entity->getIdOmie()) {
+        if ($entity->getIdOmie() !== null) {
             $entityArrayData['nCodTabPreco'] = $entity->getIdOmie();
         }
-        if ($entity->getIdIntegracao()) {
+        if ($entity->getIdIntegracao() !== null) {
             $entityArrayData['cCodIntTabPreco'] = $entity->getIdIntegracao();
         }
-        if ($entity->getNome()) {
+        if ($entity->getNome() !== null) {
             $entityArrayData['cNome'] = $entity->getNome();
         }
-        if ($entity->getCodigo()) {
+        if ($entity->getCodigo() !== null) {
             $entityArrayData['cCodigo'] = $entity->getCodigo();
         }
-        if ($entity->getAtiva()) {
+        if ($entity->getAtiva() !== null) {
             $entityArrayData['cAtiva'] = $entity->getAtiva();
         }
-        if ($entity->getOrigem()) {
+        if ($entity->getOrigem() !== null) {
             $entityArrayData['cOrigem'] = $entity->getOrigem();
         }
 
         // Produtos
-        if ($entity->getProdutos()) {
+        if ($entity->getProdutos() !== null) {
             $entityArrayData['produtos'] = [];
 
-            if ($entity->getProdutos()->getTodosProdutos()) {
+            if ($entity->getProdutos()->getTodosProdutos() !== null) {
                 $entityArrayData['produtos']['cTodosProdutos'] = $entity->getProdutos()->getTodosProdutos();
             }
-            if ($entity->getProdutos()->getCodigoFamilia()) {
+            if ($entity->getProdutos()->getCodigoFamilia() !== null) {
                 $entityArrayData['produtos']['nCodFamilia'] = $entity->getProdutos()->getCodigoFamilia();
             }
-            if ($entity->getProdutos()->getNcm()) {
+            if ($entity->getProdutos()->getNcm() !== null) {
                 $entityArrayData['produtos']['cNCM'] = $entity->getProdutos()->getNcm();
             }
-            if ($entity->getProdutos()->getCodigoCaracteristica()) {
+            if ($entity->getProdutos()->getCodigoCaracteristica() !== null) {
                 $entityArrayData['produtos']['nCodCaract'] = $entity->getProdutos()->getCodigoCaracteristica();
             }
-            if ($entity->getProdutos()->getConteudoCaracteristica()) {
+            if ($entity->getProdutos()->getConteudoCaracteristica() !== null) {
                 $entityArrayData['produtos']['cConteudo'] = $entity->getProdutos()->getConteudoCaracteristica();
             }
-            if ($entity->getProdutos()->getCodigoFornecedor()) {
+            if ($entity->getProdutos()->getCodigoFornecedor() !== null) {
                 $entityArrayData['produtos']['nCodFornec'] = $entity->getProdutos()->getCodigoFornecedor();
             }
         }
 
         // Clientes
-        if ($entity->getClientes()) {
+        if ($entity->getClientes() !== null) {
             $entityArrayData['clientes'] = [];
 
-            if ($entity->getClientes()->getTodosClientes()) {
+            if ($entity->getClientes()->getTodosClientes() !== null) {
                 $entityArrayData['clientes']['cTodosClientes'] = $entity->getClientes()->getTodosClientes();
             }
-            if ($entity->getClientes()->getCodigoTag()) {
+            if ($entity->getClientes()->getCodigoTag() !== null) {
                 $entityArrayData['clientes']['nCodTag'] = $entity->getClientes()->getCodigoTag();
             }
-            if ($entity->getClientes()->getDescricaoTag()) {
+            if ($entity->getClientes()->getDescricaoTag() !== null) {
                 $entityArrayData['clientes']['cTag'] = $entity->getClientes()->getDescricaoTag();
             }
-            if ($entity->getClientes()->getUf()) {
+            if ($entity->getClientes()->getUf() !== null) {
                 $entityArrayData['clientes']['cUF'] = $entity->getClientes()->getUf();
             }
         }
 
         // Outras Info
-        if ($entity->getOutrasInfo()) {
+        if ($entity->getOutrasInfo() !== null) {
             $entityArrayData['outrasInfo'] = [];
 
-            if ($entity->getOutrasInfo()->getCodigoTabelaOriginal()) {
+            if ($entity->getOutrasInfo()->getCodigoTabelaOriginal() !== null) {
                 $entityArrayData['outrasInfo']['nCodOrigTab'] = $entity->getOutrasInfo()->getCodigoTabelaOriginal();
             }
-            if ($entity->getOutrasInfo()->getPercentualAcrescimo()) {
+            if ($entity->getOutrasInfo()->getPercentualAcrescimo() !== null) {
                 $entityArrayData['outrasInfo']['nPercAcrescimo'] = $entity->getOutrasInfo()->getPercentualAcrescimo();
             }
-            if ($entity->getOutrasInfo()->getPercentualDesconto()) {
+            if ($entity->getOutrasInfo()->getPercentualDesconto() !== null) {
                 $entityArrayData['outrasInfo']['nPercDesconto'] = $entity->getOutrasInfo()->getPercentualDesconto();
             }
         }
 
         // Características
-        if ($entity->getCaracteristicas()) {
+        if ($entity->getCaracteristicas() !== null) {
             $entityArrayData['caracteristicas'] = [];
 
-            if ($entity->getCaracteristicas()->getTemValidade()) {
+            if ($entity->getCaracteristicas()->getTemValidade() !== null) {
                 $entityArrayData['caracteristicas']['cTemValidade'] = $entity->getCaracteristicas()->getTemValidade();
             }
-            if ($entity->getCaracteristicas()->getDataInicialValidade()) {
+            if ($entity->getCaracteristicas()->getDataInicialValidade() !== null) {
                 $entityArrayData['caracteristicas']['dDtInicial'] = $entity->getCaracteristicas()->getDataInicialValidade();
             }
-            if ($entity->getCaracteristicas()->getDataFinalValidade()) {
+            if ($entity->getCaracteristicas()->getDataFinalValidade() !== null) {
                 $entityArrayData['caracteristicas']['dDtFinal'] = $entity->getCaracteristicas()->getDataFinalValidade();
             }
-            if ($entity->getCaracteristicas()->getTemDesconto()) {
+            if ($entity->getCaracteristicas()->getTemDesconto() !== null) {
                 $entityArrayData['caracteristicas']['cTemDesconto'] = $entity->getCaracteristicas()->getTemDesconto();
             }
-            if ($entity->getCaracteristicas()->getDescontoSugerido()) {
+            if ($entity->getCaracteristicas()->getDescontoSugerido() !== null) {
                 $entityArrayData['caracteristicas']['nDescSugerido'] = $entity->getCaracteristicas()->getDescontoSugerido();
             }
-            if ($entity->getCaracteristicas()->getPercentualDescontoMaximo()) {
+            if ($entity->getCaracteristicas()->getPercentualDescontoMaximo() !== null) {
                 $entityArrayData['caracteristicas']['nPercDescMax'] = $entity->getCaracteristicas()->getPercentualDescontoMaximo();
             }
-            if ($entity->getCaracteristicas()->getArredondaPreco()) {
+            if ($entity->getCaracteristicas()->getArredondaPreco() !== null) {
                 $entityArrayData['caracteristicas']['cArredPreco'] = $entity->getCaracteristicas()->getArredondaPreco();
             }
         }
 
         // Info
-        if ($entity->getInfo()) {
+        if ($entity->getInfo() !== null) {
             $entityArrayData['info'] = [];
 
-            if ($entity->getInfo()->getDataInclusao()) {
+            if ($entity->getInfo()->getDataInclusao() !== null) {
                 $entityArrayData['info']['dInc'] = $entity->getInfo()->getDataInclusao();
             }
-            if ($entity->getInfo()->getHoraInclusao()) {
+            if ($entity->getInfo()->getHoraInclusao() !== null) {
                 $entityArrayData['info']['hInc'] = $entity->getInfo()->getHoraInclusao();
             }
-            if ($entity->getInfo()->getUsuarioInclusao()) {
+            if ($entity->getInfo()->getUsuarioInclusao() !== null) {
                 $entityArrayData['info']['uInc'] = $entity->getInfo()->getUsuarioInclusao();
             }
-            if ($entity->getInfo()->getDataAlteracao()) {
+            if ($entity->getInfo()->getDataAlteracao() !== null) {
                 $entityArrayData['info']['dAlt'] = $entity->getInfo()->getDataAlteracao();
             }
-            if ($entity->getInfo()->getHoraAlteracao()) {
+            if ($entity->getInfo()->getHoraAlteracao() !== null) {
                 $entityArrayData['info']['hAlt'] = $entity->getInfo()->getHoraAlteracao();
             }
-            if ($entity->getInfo()->getUsuarioAlteracao()) {
+            if ($entity->getInfo()->getUsuarioAlteracao() !== null) {
                 $entityArrayData['info']['uAlt'] = $entity->getInfo()->getUsuarioAlteracao();
             }
-            if ($entity->getInfo()->getImportadoPelaApi()) {
+            if ($entity->getInfo()->getImportadoPelaApi() !== null) {
                 $entityArrayData['info']['cImpAPI'] = $entity->getInfo()->getImportadoPelaApi();
             }
         }
@@ -270,7 +270,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      *
      * @return array
      */
-    private function cleanArray(string $action, array $entityArray)
+    private function cleanArray(string $action, array $entityArray): array
     {
         switch ($action) {
             case self::ACTION_INCLUIR:
@@ -317,7 +317,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel[]
      * @throws \Exception
      */
-    public function listar()
+    public function listar(): array
     {
         $list = [];
 
@@ -350,7 +350,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoEntityOmieModel
      * @throws \Exception
      */
-    public function consultar(TabelaDePrecoConsultarRequestOmieModel $requestModel)
+    public function consultar(TabelaDePrecoConsultarRequestOmieModel $requestModel): TabelaDePrecoEntityOmieModel
     {
         $param = [];
 
@@ -373,7 +373,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
      * @throws \Exception
      */
-    public function incluir(TabelaDePrecoEntityOmieModel $requestModel)
+    public function incluir(TabelaDePrecoEntityOmieModel $requestModel): TabelaDePrecoStatusOmieModel
     {
         $cleanedArray = $this->cleanArray(self::ACTION_INCLUIR, $this->mountArrayFromEntity($requestModel));
 
@@ -388,7 +388,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
      * @throws \Exception
      */
-    public function alterar(TabelaDePrecoEntityOmieModel $requestModel)
+    public function alterar(TabelaDePrecoEntityOmieModel $requestModel): TabelaDePrecoStatusOmieModel
     {
         $cleanedArray = $this->cleanArray(self::ACTION_ALTERAR, $this->mountArrayFromEntity($requestModel));
 
@@ -403,7 +403,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
      * @throws \Exception
      */
-    public function excluir(TabelaDePrecoExcluirRequestOmieModel $requestModel)
+    public function excluir(TabelaDePrecoExcluirRequestOmieModel $requestModel): TabelaDePrecoStatusOmieModel
     {
         $param = [];
 
@@ -426,7 +426,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
      * @throws \Exception
      */
-    public function ativar(TabelaDePrecoAtivarRequestOmieModel $requestModel)
+    public function ativar(TabelaDePrecoAtivarRequestOmieModel $requestModel): TabelaDePrecoStatusOmieModel
     {
         $param = [];
 
@@ -449,7 +449,7 @@ class TabelasDePrecosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Produtos\TabelasDePrecos\TabelaDePrecoStatusOmieModel
      * @throws \Exception
      */
-    public function suspender(TabelaDePrecoSuspenderRequestOmieModel $requestModel)
+    public function suspender(TabelaDePrecoSuspenderRequestOmieModel $requestModel): TabelaDePrecoStatusOmieModel
     {
         $param = [];
 
@@ -472,11 +472,10 @@ class TabelasDePrecosHandler extends OmieApiHandler
      *
      * @return array
      */
-    public function comparar(TabelaDePrecoEntityOmieModel $sourceModel, TabelaDePrecoEntityOmieModel $targetModel)
+    public function comparar(TabelaDePrecoEntityOmieModel $sourceModel, TabelaDePrecoEntityOmieModel $targetModel): array
     {
         $sourceModelArray = $this->mountArrayFromEntity($sourceModel);
         $targetModelArray = $this->mountArrayFromEntity($targetModel);
-
 
         $tabelaDePrecosStructure = [
             //'nCodTabPreco'    => 'nCodTabPreco',
@@ -519,16 +518,24 @@ class TabelasDePrecosHandler extends OmieApiHandler
         foreach ($tabelaDePrecosStructure as $key => $value) {
             if (in_array($key, ['produtos', 'clientes', 'outrasInfo', 'caracteristicas'])) {
                 foreach ($tabelaDePrecosStructure[$key] as $keyArray => $valueArray) {
-                    $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    $indexName = "$key|$keyArray";
+                    $sourceIndex = $sourceModelArray[$key][$keyArray];
+                    $targetIndex = $targetModelArray[$key][$keyArray];
+
+                    $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
                     if ($compareResult) {
-                        $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
+                        $comparisonData = array_merge_recursive($comparisonData, OmieApiCommon::comparisonResultProcessing($compareResult, $indexName));
                     }
                 }
 
             } else {
-                $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
+                $indexName = $key;
+                $sourceIndex = $sourceModelArray[$key];
+                $targetIndex = $targetModelArray[$key];
+
+                $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
                 if ($compareResult) {
-                    $comparisonData[] = $compareResult . " para o índice [$key]";
+                    $comparisonData = array_merge_recursive($comparisonData, OmieApiCommon::comparisonResultProcessing($compareResult, $indexName));
                 }
             }
         }

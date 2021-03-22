@@ -37,7 +37,7 @@ class ProdutosHandler extends OmieApiHandler
      * @return array
      * @throws \Exception
      */
-    private function request(string $action, array $param = null)
+    private function request(string $action, array $param = null): array
     {
         return $this->call(self::ENDPOINT, $action, $param);
     }
@@ -47,7 +47,7 @@ class ProdutosHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoEntityOmieModel
      */
-    private function hidrateEntity(array $data)
+    private function hidrateEntity(array $data): ProdutoEntityOmieModel
     {
         $object = new ProdutoEntityOmieModel();
         $object->setIdOmie($data['codigo_produto']);
@@ -175,7 +175,7 @@ class ProdutosHandler extends OmieApiHandler
      *
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoStatusOmieModel
      */
-    private function hidrateStatus(array $data)
+    private function hidrateStatus(array $data): ProdutoStatusOmieModel
     {
         $object = new ProdutoStatusOmieModel();
         $object->setIdOmie($data['codigo_produto']);
@@ -191,220 +191,220 @@ class ProdutosHandler extends OmieApiHandler
      *
      * @return array
      */
-    private function mountArrayFromEntity(ProdutoEntityOmieModel $entity)
+    private function mountArrayFromEntity(ProdutoEntityOmieModel $entity): array
     {
         $entityArrayData = [];
 
-        if ($entity->getIdOmie()) {
+        if ($entity->getIdOmie() !== null) {
             $entityArrayData['codigo_produto'] = $entity->getIdOmie();
         }
-        if ($entity->getIdIntegracao()) {
+        if ($entity->getIdIntegracao() !== null) {
             $entityArrayData['codigo_produto_integracao'] = $entity->getIdIntegracao();
         }
-        if ($entity->getDescricao()) {
+        if ($entity->getDescricao() !== null) {
             $entityArrayData['descricao'] = $entity->getDescricao();
         }
-        if ($entity->getCodigo()) {
+        if ($entity->getCodigo() !== null) {
             $entityArrayData['codigo'] = $entity->getCodigo();
         }
-        if ($entity->getUnidade()) {
+        if ($entity->getUnidade() !== null) {
             $entityArrayData['unidade'] = $entity->getUnidade();
         }
-        if ($entity->getNcm()) {
+        if ($entity->getNcm() !== null) {
             $entityArrayData['ncm'] = $entity->getNcm();
         }
-        if ($entity->getEan()) {
+        if ($entity->getEan() !== null) {
             $entityArrayData['ean'] = $entity->getEan();
         }
         if ($entity->getValorUnitario() !== null) {
             $entityArrayData['valor_unitario'] = $entity->getValorUnitario();
         }
-        if ($entity->getCodigoFamilia()) {
+        if ($entity->getCodigoFamilia() !== null) {
             $entityArrayData['codigo_familia'] = $entity->getCodigoFamilia();
         }
-        if ($entity->getTipoItem()) {
+        if ($entity->getTipoItem() !== null) {
             $entityArrayData['tipoItem'] = $entity->getTipoItem();
         }
-        if ($entity->getPesoLiquido()) {
+        if ($entity->getPesoLiquido() !== null) {
             $entityArrayData['peso_liq'] = $entity->getPesoLiquido();
         }
-        if ($entity->getPesoBruto()) {
+        if ($entity->getPesoBruto() !== null) {
             $entityArrayData['peso_bruto'] = $entity->getPesoBruto();
         }
-        if ($entity->getAltura()) {
+        if ($entity->getAltura() !== null) {
             $entityArrayData['altura'] = $entity->getAltura();
         }
-        if ($entity->getLargura()) {
+        if ($entity->getLargura() !== null) {
             $entityArrayData['largura'] = $entity->getLargura();
         }
-        if ($entity->getProfundidade()) {
+        if ($entity->getProfundidade() !== null) {
             $entityArrayData['profundidade'] = $entity->getProfundidade();
         }
-        if ($entity->getMarca()) {
+        if ($entity->getMarca() !== null) {
             $entityArrayData['marca'] = $entity->getMarca();
         }
-        if ($entity->getDiasGarantia()) {
+        if ($entity->getDiasGarantia() !== null) {
             $entityArrayData['dias_garantia'] = $entity->getDiasGarantia();
         }
-        if ($entity->getDiasCrossdocking()) {
+        if ($entity->getDiasCrossdocking() !== null) {
             $entityArrayData['dias_crossdocking'] = $entity->getDiasCrossdocking();
         }
-        if ($entity->getDescricaoDetalhada()) {
+        if ($entity->getDescricaoDetalhada() !== null) {
             $entityArrayData['descr_detalhada'] = $entity->getDescricaoDetalhada();
         }
-        if ($entity->getObservacoesInternas()) {
+        if ($entity->getObservacoesInternas() !== null) {
             $entityArrayData['obs_internas'] = $entity->getObservacoesInternas();
         }
-        if ($entity->getExibirDescricaoNfe()) {
+        if ($entity->getExibirDescricaoNfe() !== null) {
             $entityArrayData['exibir_descricao_nfe'] = $entity->getExibirDescricaoNfe();
         }
-        if ($entity->getExibirDescricaoPedido()) {
+        if ($entity->getExibirDescricaoPedido() !== null) {
             $entityArrayData['exibir_descricao_pedido'] = $entity->getExibirDescricaoPedido();
         }
-        if ($entity->getCstIcms()) {
+        if ($entity->getCstIcms() !== null) {
             $entityArrayData['cst_icms'] = $entity->getCstIcms();
         }
-        if ($entity->getModalidadeIcms()) {
+        if ($entity->getModalidadeIcms() !== null) {
             $entityArrayData['modalidade_icms'] = $entity->getModalidadeIcms();
         }
-        if ($entity->getCsosnIcms()) {
+        if ($entity->getCsosnIcms() !== null) {
             $entityArrayData['csosn_icms'] = $entity->getCsosnIcms();
         }
-        if ($entity->getAliquotaIcms()) {
+        if ($entity->getAliquotaIcms() !== null) {
             $entityArrayData['aliquota_icms'] = $entity->getAliquotaIcms();
         }
-        if ($entity->getReducaoBaseIcms()) {
+        if ($entity->getReducaoBaseIcms() !== null) {
             $entityArrayData['red_base_icms'] = $entity->getReducaoBaseIcms();
         }
-        if ($entity->getMotivoDesoneracaoIcms()) {
+        if ($entity->getMotivoDesoneracaoIcms() !== null) {
             $entityArrayData['motivo_deson_icms'] = $entity->getMotivoDesoneracaoIcms();
         }
-        if ($entity->getPercentualFcpIcms()) {
+        if ($entity->getPercentualFcpIcms() !== null) {
             $entityArrayData['per_icms_fcp'] = $entity->getPercentualFcpIcms();
         }
-        if ($entity->getCodigoBeneficio()) {
+        if ($entity->getCodigoBeneficio() !== null) {
             $entityArrayData['codigo_beneficio'] = $entity->getCodigoBeneficio();
         }
-        if ($entity->getCstPis()) {
+        if ($entity->getCstPis() !== null) {
             $entityArrayData['cst_pis'] = $entity->getCstPis();
         }
-        if ($entity->getAliquotaPis()) {
+        if ($entity->getAliquotaPis() !== null) {
             $entityArrayData['aliquota_pis'] = $entity->getAliquotaPis();
         }
-        if ($entity->getCstCofins()) {
+        if ($entity->getCstCofins() !== null) {
             $entityArrayData['cst_cofins'] = $entity->getCstCofins();
         }
-        if ($entity->getAliquotaCofins()) {
+        if ($entity->getAliquotaCofins() !== null) {
             $entityArrayData['aliquota_cofins'] = $entity->getAliquotaCofins();
         }
-        if ($entity->getCfop()) {
+        if ($entity->getCfop() !== null) {
             $entityArrayData['cfop'] = $entity->getCfop();
         }
-        if ($entity->getCodigoIntegracaoFamilia()) {
+        if ($entity->getCodigoIntegracaoFamilia() !== null) {
             $entityArrayData['codInt_familia'] = $entity->getCodigoIntegracaoFamilia();
         }
-        if ($entity->getDescricaoFamilia()) {
+        if ($entity->getDescricaoFamilia() !== null) {
             $entityArrayData['descricao_familia'] = $entity->getDescricaoFamilia();
         }
-        if ($entity->getBloqueado()) {
+        if ($entity->getBloqueado() !== null) {
             $entityArrayData['bloqueado'] = $entity->getBloqueado();
         }
-        if ($entity->getBloquearExclusao()) {
+        if ($entity->getBloquearExclusao() !== null) {
             $entityArrayData['bloquear_exclusao'] = $entity->getBloquearExclusao();
         }
-        if ($entity->getImportadoApi()) {
+        if ($entity->getImportadoApi() !== null) {
             $entityArrayData['importado_api'] = $entity->getImportadoApi();
         }
-        if ($entity->getInativo()) {
+        if ($entity->getInativo() !== null) {
             $entityArrayData['inativo'] = $entity->getInativo();
         }
 
         // Info
-        if ($entity->getInfo()) {
+        if ($entity->getInfo() !== null) {
             $entityArrayData['info'] = [];
 
-            if ($entity->getInfo()->getDataInclusao()) {
+            if ($entity->getInfo()->getDataInclusao() !== null) {
                 $entityArrayData['info']['dInc'] = $entity->getInfo()->getDataInclusao();
             }
-            if ($entity->getInfo()->getHoraInclusao()) {
+            if ($entity->getInfo()->getHoraInclusao() !== null) {
                 $entityArrayData['info']['hInc'] = $entity->getInfo()->getHoraInclusao();
             }
-            if ($entity->getInfo()->getUsuarioInclusao()) {
+            if ($entity->getInfo()->getUsuarioInclusao() !== null) {
                 $entityArrayData['info']['uInc'] = $entity->getInfo()->getUsuarioInclusao();
             }
-            if ($entity->getInfo()->getDataAlteracao()) {
+            if ($entity->getInfo()->getDataAlteracao() !== null) {
                 $entityArrayData['info']['dAlt'] = $entity->getInfo()->getDataAlteracao();
             }
-            if ($entity->getInfo()->getHoraAlteracao()) {
+            if ($entity->getInfo()->getHoraAlteracao() !== null) {
                 $entityArrayData['info']['hAlt'] = $entity->getInfo()->getHoraAlteracao();
             }
-            if ($entity->getInfo()->getUsuarioAlteracao()) {
+            if ($entity->getInfo()->getUsuarioAlteracao() !== null) {
                 $entityArrayData['info']['uAlt'] = $entity->getInfo()->getUsuarioAlteracao();
             }
-            if ($entity->getInfo()->getImportadoPelaApi()) {
+            if ($entity->getInfo()->getImportadoPelaApi() !== null) {
                 $entityArrayData['info']['cImpAPI'] = $entity->getInfo()->getImportadoPelaApi();
             }
         }
 
         // Recomendações Fiscais
-        if ($entity->getRecomendacoesFiscais()) {
+        if ($entity->getRecomendacoesFiscais() !== null) {
             $entityArrayData['recomendacoes_fiscais'] = [];
 
-            if ($entity->getRecomendacoesFiscais()->getOrigemMercadoria()) {
+            if ($entity->getRecomendacoesFiscais()->getOrigemMercadoria() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['origem_mercadoria'] = $entity->getRecomendacoesFiscais()->getOrigemMercadoria();
             }
-            if ($entity->getRecomendacoesFiscais()->getIdPrecoTabelado()) {
+            if ($entity->getRecomendacoesFiscais()->getIdPrecoTabelado() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['id_preco_tabelado'] = $entity->getRecomendacoesFiscais()->getIdPrecoTabelado();
             }
-            if ($entity->getRecomendacoesFiscais()->getIdCest()) {
+            if ($entity->getRecomendacoesFiscais()->getIdCest() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['id_cest'] = $entity->getRecomendacoesFiscais()->getIdCest();
             }
-            if ($entity->getRecomendacoesFiscais()->getCupomFiscal()) {
+            if ($entity->getRecomendacoesFiscais()->getCupomFiscal() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['cupom_fiscal'] = $entity->getRecomendacoesFiscais()->getCupomFiscal();
             }
-            if ($entity->getRecomendacoesFiscais()->getMarketPlace()) {
+            if ($entity->getRecomendacoesFiscais()->getMarketPlace() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['market_place'] = $entity->getRecomendacoesFiscais()->getMarketPlace();
             }
-            if ($entity->getRecomendacoesFiscais()->getIndicadorEscala()) {
+            if ($entity->getRecomendacoesFiscais()->getIndicadorEscala() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['indicador_escala'] = $entity->getRecomendacoesFiscais()->getIndicadorEscala();
             }
-            if ($entity->getRecomendacoesFiscais()->getCnpjFabricante()) {
+            if ($entity->getRecomendacoesFiscais()->getCnpjFabricante() !== null) {
                 $entityArrayData['recomendacoes_fiscais']['cnpj_fabricante'] = $entity->getRecomendacoesFiscais()->getCnpjFabricante();
             }
         }
 
         // Dados Ibpt
-        if ($entity->getDadosIbpt()) {
+        if ($entity->getDadosIbpt() !== null) {
             $entityArrayData['dadosIbpt'] = [];
 
-            if ($entity->getDadosIbpt()->getAliquotaFederal()) {
+            if ($entity->getDadosIbpt()->getAliquotaFederal() !== null) {
                 $entityArrayData['dadosIbpt']['aliqFederal'] = $entity->getDadosIbpt()->getAliquotaFederal();
             }
-            if ($entity->getDadosIbpt()->getAliquotaEstadual()) {
+            if ($entity->getDadosIbpt()->getAliquotaEstadual() !== null) {
                 $entityArrayData['dadosIbpt']['aliqEstadual'] = $entity->getDadosIbpt()->getAliquotaEstadual();
             }
-            if ($entity->getDadosIbpt()->getAliquotaMunicipal()) {
+            if ($entity->getDadosIbpt()->getAliquotaMunicipal() !== null) {
                 $entityArrayData['dadosIbpt']['aliqMunicipal'] = $entity->getDadosIbpt()->getAliquotaMunicipal();
             }
-            if ($entity->getDadosIbpt()->getFonte()) {
+            if ($entity->getDadosIbpt()->getFonte() !== null) {
                 $entityArrayData['dadosIbpt']['fonte'] = $entity->getDadosIbpt()->getFonte();
             }
-            if ($entity->getDadosIbpt()->getChave()) {
+            if ($entity->getDadosIbpt()->getChave() !== null) {
                 $entityArrayData['dadosIbpt']['chave'] = $entity->getDadosIbpt()->getChave();
             }
-            if ($entity->getDadosIbpt()->getVersao()) {
+            if ($entity->getDadosIbpt()->getVersao() !== null) {
                 $entityArrayData['dadosIbpt']['versao'] = $entity->getDadosIbpt()->getVersao();
             }
-            if ($entity->getDadosIbpt()->getValidoDe()) {
+            if ($entity->getDadosIbpt()->getValidoDe() !== null) {
                 $entityArrayData['dadosIbpt']['valido_de'] = $entity->getDadosIbpt()->getValidoDe();
             }
-            if ($entity->getDadosIbpt()->getValidoAte()) {
+            if ($entity->getDadosIbpt()->getValidoAte() !== null) {
                 $entityArrayData['dadosIbpt']['valido_ate'] = $entity->getDadosIbpt()->getValidoAte();
             }
         }
 
         // Imagens
-        if ($entity->getImagens()) {
+        if ($entity->getImagens() !== null) {
             $entityArrayData['imagens'] = [];
 
             foreach ($entity->getImagens() as $imagem) {
@@ -413,7 +413,7 @@ class ProdutosHandler extends OmieApiHandler
         }
 
         // Vídeos
-        if ($entity->getVideos()) {
+        if ($entity->getVideos() !== null) {
             $entityArrayData['videos'] = [];
 
             foreach ($entity->getVideos() as $video) {
@@ -422,7 +422,7 @@ class ProdutosHandler extends OmieApiHandler
         }
 
         // Características
-        if ($entity->getCaracteristicas()) {
+        if ($entity->getCaracteristicas() !== null) {
             $entityArrayData['caracteristicas'] = [];
 
             foreach ($entity->getCaracteristicas() as $caracteristica) {
@@ -443,7 +443,7 @@ class ProdutosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoEntityOmieModel[]
      * @throws \Exception
      */
-    public function listar()
+    public function listar(): array
     {
         $list = [];
 
@@ -478,7 +478,7 @@ class ProdutosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoEntityOmieModel
      * @throws \Exception
      */
-    public function consultar(ProdutoConsultarRequestOmieModel $requestModel)
+    public function consultar(ProdutoConsultarRequestOmieModel $requestModel): ProdutoEntityOmieModel
     {
         $param = [];
 
@@ -505,7 +505,7 @@ class ProdutosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoStatusOmieModel
      * @throws \Exception
      */
-    public function incluir(ProdutoEntityOmieModel $requestModel)
+    public function incluir(ProdutoEntityOmieModel $requestModel): ProdutoStatusOmieModel
     {
         $result = $this->request(self::ACTION_INCLUIR, $this->mountArrayFromEntity($requestModel));
 
@@ -518,7 +518,7 @@ class ProdutosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoStatusOmieModel
      * @throws \Exception
      */
-    public function alterar(ProdutoEntityOmieModel $requestModel)
+    public function alterar(ProdutoEntityOmieModel $requestModel): ProdutoStatusOmieModel
     {
         $result = $this->request(self::ACTION_ALTERAR, $this->mountArrayFromEntity($requestModel));
 
@@ -531,7 +531,7 @@ class ProdutosHandler extends OmieApiHandler
      * @return \Fangs\ApiClients\Omie\v1\Models\Geral\Produtos\ProdutoStatusOmieModel
      * @throws \Exception
      */
-    public function excluir(ProdutoExcluirRequestOmieModel $requestModel)
+    public function excluir(ProdutoExcluirRequestOmieModel $requestModel): ProdutoStatusOmieModel
     {
         $param = [];
 
@@ -557,7 +557,7 @@ class ProdutosHandler extends OmieApiHandler
      *
      * @return array
      */
-    public function incluirOuAlterarPorLote(array $requestModels)
+    public function incluirOuAlterarPorLote(array $requestModels): array
     {
         // Separar por lotes de 50 registros
         $chunks = array_chunk($requestModels, 50);
@@ -603,7 +603,7 @@ class ProdutosHandler extends OmieApiHandler
      *
      * @return array
      */
-    public function comparar(ProdutoEntityOmieModel $sourceModel, ProdutoEntityOmieModel $targetModel)
+    public function comparar(ProdutoEntityOmieModel $sourceModel, ProdutoEntityOmieModel $targetModel): array
     {
         $sourceModelArray = $this->mountArrayFromEntity($sourceModel);
         $targetModelArray = $this->mountArrayFromEntity($targetModel);
@@ -683,16 +683,24 @@ class ProdutosHandler extends OmieApiHandler
         foreach ($clientesStructure as $key => $value) {
             if (in_array($key, ['recomendacoes_fiscais', 'dadosIbpt'])) {
                 foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
-                    $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key][$keyArray], $targetModelArray[$key][$keyArray]);
+                    $indexName = "$key|$keyArray";
+                    $sourceIndex = $sourceModelArray[$key][$keyArray];
+                    $targetIndex = $targetModelArray[$key][$keyArray];
+
+                    $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
                     if ($compareResult) {
-                        $comparisonData[] = $compareResult . " para o índice [$key][$keyArray]";
+                        $comparisonData = array_merge_recursive($comparisonData, OmieApiCommon::comparisonResultProcessing($compareResult, $indexName));
                     }
                 }
 
             } else {
-                $compareResult = OmieApiCommon::indexComparison($sourceModelArray[$key], $targetModelArray[$key]);
+                $indexName = $key;
+                $sourceIndex = $sourceModelArray[$key];
+                $targetIndex = $targetModelArray[$key];
+
+                $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
                 if ($compareResult) {
-                    $comparisonData[] = $compareResult . " para o índice [$key]";
+                    $comparisonData = array_merge_recursive($comparisonData, OmieApiCommon::comparisonResultProcessing($compareResult, $indexName));
                 }
             }
         }

@@ -71,10 +71,10 @@ class TagsHandler extends OmieApiHandler
     {
         $entityArrayData = [];
 
-        if ($entity->getIdOmie()) {
+        if ($entity->getIdOmie() !== null) {
             $entityArrayData['nCodTag'] = $entity->getIdOmie();
         }
-        if ($entity->getTag()) {
+        if ($entity->getTag() !== null) {
             $entityArrayData['tag'] = $entity->getTag();
         }
 
@@ -132,7 +132,6 @@ class TagsHandler extends OmieApiHandler
 
         return $this->hidrateStatus($result);
     }
-
 
     /**
      * @param \Fangs\ApiClients\Omie\v1\Models\Geral\Tags\TagExcluirTodasRequestOmieModel $requestModel

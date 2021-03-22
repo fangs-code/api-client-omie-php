@@ -640,14 +640,7 @@ class ClientesHandler extends OmieApiHandler
             ],
         ];
 
-        $comparisonData = [
-            'texts' => [],
-            'diff'  => [
-                'notEqual'      => [],
-                'emptyOnTarget' => [],
-                'emptyOnSource' => [],
-            ],
-        ];
+        $comparisonData = [];
         foreach ($clientesStructure as $key => $value) {
             if (in_array($key, ['recomendacoes', 'enderecoEntrega', 'dadosBancarios'])) {
                 foreach ($clientesStructure[$key] as $keyArray => $valueArray) {
@@ -666,44 +659,18 @@ class ClientesHandler extends OmieApiHandler
                     }
 
                     $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
-                    switch ($compareResult) {
-                        case OmieApiCommon::COMPARE_RESULT_VALOR_DIFERENTE:
-                            $comparisonData['texts'][] = "Valor diferente para o índice $indexName";
-                            $comparisonData['diff']['notEqual'][] = $indexName;
-                            break;
-
-                        case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ALVO:
-                            $comparisonData['texts'][] = "Valor ausente no alvo para o índice $indexName";
-                            $comparisonData['diff']['emptyOnTarget'][] = $indexName;
-                            break;
-
-                        case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ORIGEM:
-                            $comparisonData['texts'][] = "Valor ausente na origem para o índice $indexName";
-                            $comparisonData['diff']['emptyOnSource'][] = $indexName;
-                            break;
+                    if ($compareResult) {
+                        $comparisonData = array_merge_recursive($comparisonData, OmieApiCommon::comparisonResultProcessing($compareResult, $indexName));
                     }
                 }
-            }else{
+            } else {
                 $indexName = $key;
                 $sourceIndex = $sourceModelArray[$key];
                 $targetIndex = $targetModelArray[$key];
 
                 $compareResult = OmieApiCommon::indexComparison($sourceIndex, $targetIndex);
-                switch ($compareResult) {
-                    case OmieApiCommon::COMPARE_RESULT_VALOR_DIFERENTE:
-                        $comparisonData['texts'][] = "Valor diferente para o índice $indexName";
-                        $comparisonData['diff']['notEqual'][] = $indexName;
-                        break;
-
-                    case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ALVO:
-                        $comparisonData['texts'][] = "Valor ausente no alvo para o índice $indexName";
-                        $comparisonData['diff']['emptyOnTarget'][] = $indexName;
-                        break;
-
-                    case OmieApiCommon::COMPARE_RESULT_VALOR_AUSENTE_ORIGEM:
-                        $comparisonData['texts'][] = "Valor ausente na origem para o índice $indexName";
-                        $comparisonData['diff']['emptyOnSource'][] = $indexName;
-                        break;
+                if ($compareResult) {
+                    $comparisonData = array_merge_recursive($comparisonData, OmieApiCommon::comparisonResultProcessing($compareResult, $indexName));
                 }
             }
         }

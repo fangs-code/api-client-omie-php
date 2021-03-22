@@ -53,10 +53,10 @@ class EmpresasHandler extends OmieApiHandler
     {
         $entityArrayData = [];
 
-        if ($entity->getIdOmie()) {
+        if ($entity->getIdOmie() !== null) {
             $entityArrayData['codigo_empresa'] = $entity->getIdOmie();
         }
-        if ($entity->getIdIntegracao()) {
+        if ($entity->getIdIntegracao() !== null) {
             $entityArrayData['codigo_empresa_integracao'] = $entity->getIdIntegracao();
         }
 
